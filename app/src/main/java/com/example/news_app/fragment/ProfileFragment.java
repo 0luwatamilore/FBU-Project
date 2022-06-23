@@ -7,10 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.news_app.LoginActivity;
 import com.example.news_app.R;
@@ -20,8 +22,9 @@ import com.parse.ParseUser;
  * A simple {@link Fragment} subclass.
  */
 public class ProfileFragment extends Fragment {
-
+    public static final String TAG = "Profile Fragment";
     Button btnLogOut;
+    Button btnUpdatePassword;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -39,15 +42,33 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         btnLogOut = view.findViewById(R.id.btnLogOut);
-        btnLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ParseUser.logOut();
-                ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
-                Intent i = new Intent(getContext(), LoginActivity.class);
-                startActivity(i);
-                ProfileFragment.super.onDestroyView();
+        btnLogOut.setOnClickListener(v -> {
+            ParseUser.logOut();
+            ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+            Intent i = new Intent(getContext(), LoginActivity.class);
+            startActivity(i);
+            ProfileFragment.super.onDestroyView();
+        });
+
+        btnUpdatePassword = view.findViewById(R.id.btnUpdatePassword);
+        btnUpdatePassword.setOnClickListener(v -> {
+            ParseUser currentUser = ParseUser.getCurrentUser();
+            if (currentUser != null) {
+                // Other attributes than "email" will remain unchanged!
+                currentUser.put("password", "nolan");
+                // Saves the object.
+                currentUser.saveInBackground(e -> {
+                    if(e==null){
+                        //Save successfull
+                        Toast.makeText(getContext(), "Save Successful", Toast.LENGTH_SHORT).show();
+                    }else{
+                        // Something went wrong while saving
+                        Log.e(TAG, "Update error " + e);
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
+
     }
 }

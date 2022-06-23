@@ -25,5 +25,14 @@
         android:layout_marginBottom="239dp"
         android:text="Log Out" />
 
+    <Button
+        android:id="@+id/btnUpdatePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="111dp"
+        android:text="Update Password" />
+
 
 </RelativeLayout>
