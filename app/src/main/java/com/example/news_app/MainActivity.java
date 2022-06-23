@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.example.news_app.fragment.ComposeFragment;
 import com.example.news_app.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parse.ParseObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,5 +55,6 @@ public class MainActivity extends AppCompatActivity {
         });
         // Set default selection
         bottomNavigation.setSelectedItemId(R.id.action_home);
+
     }
 }

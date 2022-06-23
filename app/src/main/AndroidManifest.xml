@@ -36,6 +36,19 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
+        <meta-data
+            android:name="com.parse.SERVER_URL"
+            android:value="https://parseapi.back4app.com" />
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="vf5W5u7wdTcn1f5HXaNmIuy6U2Zl9CrdDZpDmOyS" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="mO36b3M3GZH0AyNHUa64j9vp62by9vtkfUOHZfMY" />
+
+
+
     </application>
 
 </manifest>

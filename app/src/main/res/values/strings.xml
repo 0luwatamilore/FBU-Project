@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">News-App</string>
+
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+
+    <!-- Paste BOTH strings as required -->
+    <string name="back4app_app_id">vf5W5u7wdTcn1f5HXaNmIuy6U2Zl9CrdDZpDmOyS</string>
+    <string name="back4app_client_key">mO36b3M3GZH0AyNHUa64j9vp62by9vtkfUOHZfMY</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
