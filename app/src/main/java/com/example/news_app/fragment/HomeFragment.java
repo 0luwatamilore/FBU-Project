@@ -35,7 +35,7 @@ import okhttp3.Headers;
 public class HomeFragment extends Fragment {
 
     public static final String TAG = "Main Activity";
-    public static final String NOW_PLAYING_URL ="https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=MostPopular&maxResults=4&videoCategoryId=17&key=AIzaSyD8bq4-Cv1uZ0Xx531Pa5PTsodeR56azzg";
+    public static final String NOW_PLAYING_URL ="https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=MostPopular&maxResults=25&videoCategoryId=17&key=AIzaSyD8bq4-Cv1uZ0Xx531Pa5PTsodeR56azzg";
     private RecyclerView rvVideos;
     private VideoAdapter adapter;
     List<Video> allVideos;
