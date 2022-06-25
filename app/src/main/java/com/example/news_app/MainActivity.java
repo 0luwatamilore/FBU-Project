@@ -13,12 +13,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.codepath.asynchttpclient.RequestParams;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.codepath.asynchttpclient.callback.TextHttpResponseHandler;
 import com.example.news_app.fragment.ComposeFragment;
+import com.example.news_app.fragment.HomeFragment;
 import com.example.news_app.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseObject;
+import com.codepath.asynchttpclient.AsyncHttpClient;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import okhttp3.Headers;
 
 public class MainActivity extends AppCompatActivity {
+
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
     private BottomNavigationView bottomNavigation;
@@ -35,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.action_home:
                     Toast.makeText(MainActivity.this, "Home!", Toast.LENGTH_SHORT).show();
-                    fragment = new ComposeFragment();
+                    fragment = new HomeFragment();
                     break;
                 case R.id.action_compose:
                     Toast.makeText(MainActivity.this, "Compose!", Toast.LENGTH_SHORT).show();
@@ -53,5 +65,6 @@ public class MainActivity extends AppCompatActivity {
         // Set default selection
         bottomNavigation.setSelectedItemId(R.id.action_home);
 
-    }
+
+        }
 }
