@@ -36,19 +36,20 @@ Timeline & Feature List
 
 ## Screens
 * Splash Screen
-* 	shows a picture once the user launches the app
-	- Login Screen
-		- Users can login or decide to sign up.
-	- Registration Screen
-		- User can create a new account
-	- Home Screen
-		- User views the feed of stories based on categories
-	-Search Screen
-		- User can search for specific stories using keywords
-	- Profile Screen
-		- Displays the user’s name and profile picture
-		- User can also view saved stories
-API
+	- shows a picture once the user launches the app
+* Login Screen
+	- Users can login or decide to sign up.
+* Registration Screen
+	- User can create a new account
+* Home Screen
+	- User views the feed of stories based on categories
+* Search Screen
+	- User can search for specific stories using keywords
+* Profile Screen
+	- Displays the user’s name and profile picture
+	- User can also view saved stories
+
+## API
 	- Youtube API
 		https://developers.google.com/youtube/v3 
 
