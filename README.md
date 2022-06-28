@@ -4,7 +4,9 @@ Timeline & Feature List
 
 ## Week 4
 * [ x ] User views a splash screen at launch of application
-* [] App uses of dark mode
+* [ x ] Create Activities
+* [ x ] Create fargments
+* [ x ] Create Bottom Navigation Bar
 * [ x ] User can log into the app
 * [ x ] User can log out of the app
 * [ x ] User can Sign Up for the app (Create an account with an email and a pwd)
@@ -50,8 +52,8 @@ Timeline & Feature List
 	- User can also view saved stories
 
 ## API
-	- Youtube API
-		https://developers.google.com/youtube/v3 
+* Youtube API
+	- https://developers.google.com/youtube/v3 
 
 
 
