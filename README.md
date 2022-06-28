@@ -5,14 +5,14 @@ Timeline & Feature List
 ## Week 4
 * [ x ] User views a splash screen at launch of application
 * [] App uses of dark mode
-* [] User can log into the app
-* [] User can log out of the app
-* [] User can Sign Up for the app (Create an account with an email and a pwd)
-* [] Users can update or change passwords once already logged in.
+* [ x ] User can log into the app
+* [ x ] User can log out of the app
+* [ x ] User can Sign Up for the app (Create an account with an email and a pwd)
+* [ x ] Users can update or change passwords once already logged in.
 
 ## Week 5
-[] User can play a video
-[] User can play a list of videos
+[ x ] User can play a video
+[ x ] User can play a list of videos
 [] User can pause a video
 [] User can post a video
 [] User can search for a video 
