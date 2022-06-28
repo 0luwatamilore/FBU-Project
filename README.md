@@ -1,10 +1,8 @@
 # FBU-Project
-
-Media App
 This app allows the user to watch videos online, like other people’s videos, create and post video content of your own in order to share with friends
 Timeline & Feature List
 
-Week 4
+## Week 4
 [ x ] User views a splash screen at launch of application
 [] App uses of dark mode
 [] User can log into the app
@@ -12,7 +10,7 @@ Week 4
 [] User can Sign Up for the app (Create an account with an email and a pwd)
 [] Users can update or change passwords once already logged in.
 
-Week 5
+## Week 5
 [] User can play a video
 [] User can play a list of videos
 [] User can pause a video
