@@ -9,6 +9,9 @@ import java.util.List;
 
 public class Video {
     String id;
+    String videoId;
+    String publishedAt;
+    String channelTitle;
     String title;
     String description;
     String thumbnail;
@@ -33,6 +36,10 @@ public class Video {
 
     public String getId() {
         return id;
+    }
+
+    public String getVideoId() {
+        return videoId;
     }
 
     public String getTitle() {

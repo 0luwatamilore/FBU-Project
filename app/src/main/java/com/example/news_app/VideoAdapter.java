@@ -1,6 +1,9 @@
 package com.example.news_app;
 
+import static java.security.AccessController.getContext;
+
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +34,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         Log.d("VideoAdapter", "onCreateViewHolder");
         View videoView = LayoutInflater.from(context).inflate(R.layout.item_video, parent, false);
         return new ViewHolder(videoView);
-
     }
 
     @Override
@@ -67,6 +69,26 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             tvDescription.setText(video.getDescription());
             Glide.with(context).load(video.getThumbnail()).into(ivThumbnail);
 
+            ivThumbnail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context,VideoPlayerActivity.class);
+                    i.putExtra("VideoCue", video.getId());
+                    context.startActivity(i);
+                }
+            });
         }
     }
+
+    public void clear() {
+        videos.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(List<Video> list) {
+        videos.addAll(list);
+        notifyDataSetChanged();
+    }
+
 }

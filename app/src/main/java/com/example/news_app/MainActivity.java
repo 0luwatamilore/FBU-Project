@@ -19,6 +19,7 @@ import com.codepath.asynchttpclient.callback.TextHttpResponseHandler;
 import com.example.news_app.fragment.ComposeFragment;
 import com.example.news_app.fragment.HomeFragment;
 import com.example.news_app.fragment.ProfileFragment;
+import com.example.news_app.fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseObject;
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -53,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Compose!", Toast.LENGTH_SHORT).show();
                     fragment = new ComposeFragment();
                     break;
+                case R.id.action_search:
+                    Toast.makeText(MainActivity.this, "Search!", Toast.LENGTH_SHORT).show();
+                    fragment = new SearchFragment();
+                    break;
                 case R.id.action_profile:
                 default:
                     Toast.makeText(MainActivity.this, "Profile!", Toast.LENGTH_SHORT).show();
@@ -64,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         });
         // Set default selection
         bottomNavigation.setSelectedItemId(R.id.action_home);
-
 
         }
 }
