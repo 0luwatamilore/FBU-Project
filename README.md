@@ -11,32 +11,32 @@ Timeline & Feature List
 * [ x ] Users can update or change passwords once already logged in.
 
 ## Week 5
-[ x ] User can play a video
-[ x ] User can play a list of videos
-[] User can pause a video
-[] User can post a video
-[] User can search for a video 
-[] User can like a video
-[] User can view older videos with the support of pagination
-[] User can pull to refresh
+* [ x ] User can play a video
+* [ x ] User can play a list of videos
+* [] User can pause a video
+* [] User can post a video
+* [] User can search for a video 
+* [] User can like a video
+* [] User can view older videos with the support of pagination
+* [] User can pull to refresh
 
-Week 6
-[] Video timeline becomes visible
-[] Incorporate animations:
-[] Double tap to like, pinch to scale
-[] Pinch to scale
-[] User can create a playlist of videos
-[] User can share videos with people outside the app
+## Week 6
+* [] Video timeline becomes visible
+* [] Incorporate animations:
+* [] Double tap to like, pinch to scale
+* [] Pinch to scale
+* [] User can create a playlist of videos
+* [] User can share videos with people outside the app
 
-Week 7  (Stretch Features)
-[] User can enable daily notifications
-[] Incorporate Live Broadcast (Live Streaming)
-[] Picture in play feature (User can continue watching after leaving the app)
+## Week 7  (Stretch Features)
+* [] User can enable daily notifications
+* [] Incorporate Live Broadcast (Live Streaming)
+* [] Picture in play feature (User can continue watching after leaving the app)
 
 
-Screens
-	-Splash Screen
-		- shows a picture once the user launches the app
+## Screens
+* Splash Screen
+* 	shows a picture once the user launches the app
 	- Login Screen
 		- Users can login or decide to sign up.
 	- Registration Screen
