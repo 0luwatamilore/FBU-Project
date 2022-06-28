@@ -1,4 +1,5 @@
 # FBU-Project
+
 This app allows the user to watch videos online, like other people’s videos, create and post video content of your own in order to share with friends
 Timeline & Feature List
 
@@ -54,7 +55,3 @@ Timeline & Feature List
 ## API
 * Youtube API
 	- https://developers.google.com/youtube/v3 
-
-
-
-
