@@ -18,7 +18,7 @@ Timeline & Feature List
 * [] User can search for a video 
 * [] User can like a video
 * [] User can view older videos with the support of pagination
-* [] User can pull to refresh
+* [ x ] User can pull to refresh
 
 ## Week 6
 * [] Video timeline becomes visible
