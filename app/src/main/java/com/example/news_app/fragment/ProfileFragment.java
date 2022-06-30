@@ -1,10 +1,13 @@
 package com.example.news_app.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -12,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.news_app.LoginActivity;
@@ -23,8 +28,14 @@ import com.parse.ParseUser;
  */
 public class ProfileFragment extends Fragment {
     public static final String TAG = "Profile Fragment";
+    public static final String MYPREFERENCE = "nightModePrefs";
+    public static final String KEY_ISNIGHTMODE = "isNightMode";
+    SharedPreferences sharedPreferences;
     Button btnLogOut;
     Button btnUpdatePassword;
+    Switch aSwitch;
+
+
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -50,6 +61,27 @@ public class ProfileFragment extends Fragment {
             ProfileFragment.super.onDestroyView();
         });
 
+
+
+        aSwitch = view.findViewById(R.id.switchl);
+        sharedPreferences = getContext().getSharedPreferences(MYPREFERENCE, Context.MODE_PRIVATE);
+
+        checkNightModeActivated();
+
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    saveNightModeState(true);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    saveNightModeState(false);
+                }
+                getActivity().recreate();
+            }
+        });
+
         btnUpdatePassword = view.findViewById(R.id.btnUpdatePassword);
         btnUpdatePassword.setOnClickListener(v -> {
             ParseUser currentUser = ParseUser.getCurrentUser();
@@ -71,4 +103,23 @@ public class ProfileFragment extends Fragment {
         });
 
     }
+
+    private void saveNightModeState(boolean nightMode) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putBoolean(KEY_ISNIGHTMODE, nightMode);
+
+        editor.apply();
+    }
+
+    private void checkNightModeActivated() {
+        if(sharedPreferences.getBoolean(KEY_ISNIGHTMODE, false)){
+            aSwitch.setChecked(true);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else{
+            aSwitch.setChecked(false);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
+
 }

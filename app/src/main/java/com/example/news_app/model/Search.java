@@ -7,32 +7,31 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Video {
-    String id;
+public class Search {
+    String videoId;
     String title;
     String description;
     String thumbnail;
 
-    public Video(){}
+    public Search() {}
 
-    public Video(JSONObject jsonObject) throws JSONException {
-        id = jsonObject.getString("id");
+    public Search(JSONObject jsonObject) throws JSONException {
+        videoId = jsonObject.getString("id");
         title = jsonObject.getJSONObject("snippet").getString("title");
         description = jsonObject.getJSONObject("snippet").getString("description");
         thumbnail = jsonObject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
     }
 
-    public static List<Video> fromJsonArray(JSONArray videoJsonArray) throws JSONException {
-        List<Video> videos = new ArrayList<>();
-        for(int i=0; i< videoJsonArray.length(); i++){
-            videos.add(new Video(videoJsonArray.getJSONObject(i)));
+    public static List<Search> fromJsonArray(JSONArray searchJsonArray) throws JSONException {
+        List<Search> searches = new ArrayList<>();
+        for(int i=0; i< searchJsonArray.length(); i++){
+            searches.add(new Search(searchJsonArray.getJSONObject(i)));
         }
-        return videos;
+        return searches;
     }
 
-
-    public String getId() {
-        return id;
+    public String getVideoId() {
+        return videoId;
     }
 
     public String getTitle() {
@@ -46,5 +45,4 @@ public class Video {
     public String getThumbnail() {
         return thumbnail;
     }
-
 }
