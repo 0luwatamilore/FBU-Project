@@ -28,19 +28,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="530dp"
+        android:layout_marginBottom="582dp"
         android:text="Log Out"
-        android:textColor="?attr/primaryTitleColor"/>
+        android:textColor="?attr/primaryTitleColor" />
 
     <Button
         android:id="@+id/btnUpdatePassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="87dp"
+        android:layout_marginEnd="113dp"
+        android:layout_marginBottom="82dp"
         android:text="Update Password"
-        android:textColor="?attr/primaryTitleColor"/>
+        android:textColor="?attr/primaryTitleColor" />
 
     <Switch
         android:id="@+id/switchl"
@@ -50,12 +52,23 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="487dp"
-        android:layout_marginEnd="151dp"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="243dp"
+        android:layout_marginEnd="135dp"
         android:layout_marginBottom="10dp"
         android:text="Switch"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <EditText
+        android:id="@+id/etNewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="184dp"
+        android:ems="10"
+        android:hint="new password"
+        android:inputType="textPersonName" />
 
 
 </RelativeLayout>

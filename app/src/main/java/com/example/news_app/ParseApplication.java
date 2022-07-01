@@ -2,6 +2,7 @@ package com.example.news_app;
 
 import android.app.Application;
 
+import com.example.news_app.model.User;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -11,7 +12,7 @@ public class ParseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        ParseObject.registerSubclass(User.class);
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("vf5W5u7wdTcn1f5HXaNmIuy6U2Zl9CrdDZpDmOyS")
                 // if defined

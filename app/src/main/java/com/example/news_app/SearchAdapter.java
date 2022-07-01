@@ -71,11 +71,22 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             search_thumbnail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(context,VideoPlayerActivity.class);
+                    Intent i = new Intent(context,SearchPlayerActivity.class);
                     i.putExtra("SearchCue", search.getVideoId());
                     context.startActivity(i);
                 }
             });
         }
+    }
+
+    public void clear() {
+        searches.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(List<Search> list) {
+        searches.addAll(list);
+        notifyDataSetChanged();
     }
 }

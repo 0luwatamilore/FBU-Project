@@ -20,12 +20,18 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.news_app.R;
 import com.example.news_app.SearchAdapter;
 import com.example.news_app.model.Search;
+import com.example.news_app.model.User;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.Headers;
@@ -36,6 +42,8 @@ import okhttp3.Headers;
 public class SearchFragment extends Fragment {
     public static final String TAG = "Search Fragment";
     private String SEARCH_URL = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=";
+//                                'https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=brokegirls&key=[YOUR_API_KEY]'
+    ParseUser user;
     EditText etSearch;
     RecyclerView rvSearch;
     SearchAdapter adapter;
@@ -76,14 +84,35 @@ public class SearchFragment extends Fragment {
 
 
 
+    }
+
+    public void saveSearch(String search_keyword) {
+        User currentUser = (User) ParseUser.getCurrentUser();
+        currentUser.addAllUnique("search_keywords", Arrays.asList(search_keyword));
+        currentUser.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    // Success
+                    Log.i(TAG, "onSuccess!  >>>  " + currentUser.getSearchKeyword());
+                } else {
+                    // Error
+                    Log.i(TAG, "onFailure!  >>>  " + currentUser.getSearchKeyword() + e);
+                }
+            }
+        });
+//        currentUser.getSearchKeyword().add(search_keyword);
 
     }
 
     public void createSearch(View view){
         String searchInput = (String) etSearch.getText().toString();
-        SEARCH_URL += searchInput + "&key=AIzaSyD8bq4-Cv1uZ0Xx531Pa5PTsodeR56azzg";
+        SEARCH_URL += searchInput;
+        SEARCH_URL += "&key=AIzaSyD8bq4-Cv1uZ0Xx531Pa5PTsodeR56azzg";
         Log.i(TAG,"Search URL! >>> " + SEARCH_URL);
+        saveSearch(searchInput);
         searchRequest();
+        SEARCH_URL = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=";
     }
 
 
@@ -97,6 +126,8 @@ public class SearchFragment extends Fragment {
                         try {
                             JSONArray items = jsonObject.getJSONArray("items");
                             Log.i(TAG, "Items: " + items.toString());
+                            searches.clear();
+                            adapter.clear();
                             searches.addAll(Search.fromJsonArray(items));
                             adapter.notifyDataSetChanged();
                             Log.i(TAG, "Searches: " + searches.size());

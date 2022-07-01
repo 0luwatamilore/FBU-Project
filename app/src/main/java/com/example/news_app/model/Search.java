@@ -16,7 +16,7 @@ public class Search {
     public Search() {}
 
     public Search(JSONObject jsonObject) throws JSONException {
-        videoId = jsonObject.getString("id");
+        videoId = jsonObject.getJSONObject("id").getString("videoId");
         title = jsonObject.getJSONObject("snippet").getString("title");
         description = jsonObject.getJSONObject("snippet").getString("description");
         thumbnail = jsonObject.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");

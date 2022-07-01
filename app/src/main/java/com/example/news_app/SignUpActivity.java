@@ -52,17 +52,30 @@ public class SignUpActivity extends AppCompatActivity {
         user.setPassword(password);
         user.put("firstName", firstName);
         user.put("lastName", lastName);
-        user.signUpInBackground(e -> {
-            if (e==null) {
+        user.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issues with Sign Up! ", e);
+                    Toast.makeText(SignUpActivity.this, "Issue with Sign Up ", Toast.LENGTH_SHORT).show();
+                }
                 Toast.makeText(SignUpActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
-                Log.i(TAG,"Successful! " + user);
+                Log.i(TAG, "Successful! " + user);
                 goMainActivity();
-            }else{
-                Log.e(TAG, "Issues with Sign Up! ", e);
-                Toast.makeText(SignUpActivity.this, "Issue with Sign Up ", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+//        user.signUpInBackground(e -> {
+//            if (e==null) {
+//                Toast.makeText(SignUpActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
+//                Log.i(TAG,"Successful! " + user);
+//                goMainActivity();
+//            }else{
+//                Log.e(TAG, "Issues with Sign Up! ", e);
+//                Toast.makeText(SignUpActivity.this, "Issue with Sign Up ", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     private void goMainActivity() {
         Intent i = new Intent (SignUpActivity.this, MainActivity.class);

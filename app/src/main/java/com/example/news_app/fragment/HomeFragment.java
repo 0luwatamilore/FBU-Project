@@ -118,6 +118,9 @@ public class HomeFragment extends Fragment {
                     public void onFailure(int statusCode, Headers headers, String errorResponse, Throwable t) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         Log.e(TAG,"onFailure!");
+                        Log.e(TAG,"statusCode! >>>> " + statusCode);
+                        Log.e(TAG,"errorResponse! >>>> " + errorResponse);
+                        Log.e(TAG,"Header! >>>> " + headers.toString());
                     }
                 }
         );
