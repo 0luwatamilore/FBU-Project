@@ -19,7 +19,7 @@
         <entry key="app/src/main/res/layout/fragment_video_player.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/item_search.xml" value="0.67" />
         <entry key="app/src/main/res/layout/item_video.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/search_toolbar.xml" value="0.15060240963855423" />
+        <entry key="app/src/main/res/layout/search_toolbar.xml" value="0.375" />
         <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.40260416666666665" />
       </map>
     </option>

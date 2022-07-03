@@ -12,6 +12,7 @@ public class Search {
     String title;
     String description;
     String thumbnail;
+    String channelId;
 
     public Search() {}
 

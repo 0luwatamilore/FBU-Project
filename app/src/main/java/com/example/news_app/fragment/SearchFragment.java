@@ -12,15 +12,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.news_app.MainActivity;
 import com.example.news_app.R;
 import com.example.news_app.SearchAdapter;
-import com.example.news_app.model.Search;
+import com.example.news_app.model.search.Search;
 import com.example.news_app.model.User;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -30,6 +35,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,14 +48,15 @@ import okhttp3.Headers;
 public class SearchFragment extends Fragment {
     public static final String TAG = "Search Fragment";
     private String SEARCH_URL = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=";
-//                                'https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=brokegirls&key=[YOUR_API_KEY]'
-    ParseUser user;
-    EditText etSearch;
+    User currentUser;
+//    EditText etSearch;
     RecyclerView rvSearch;
     SearchAdapter adapter;
     Button btnEnter;
+    AutoCompleteTextView etSearch;
     List<Search> searches;
 
+    List<String> search_list;
 
 
     public SearchFragment() {
@@ -71,8 +78,15 @@ public class SearchFragment extends Fragment {
         adapter = new SearchAdapter(getContext(), searches);
         rvSearch.setAdapter(adapter);
         btnEnter = view.findViewById(R.id.btnEnter);
+//        etSearch = view.findViewById(R.id.etSearch);
         etSearch = view.findViewById(R.id.etSearch);
         rvSearch.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        currentUser = (User) ParseUser.getCurrentUser();
+        search_list = currentUser.getSearchKeyword();
+        Log.i(TAG, "onSuccess!  >>>  " + search_list);
+        etSearch.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,search_list));
+
 
 
         btnEnter.setOnClickListener(new View.OnClickListener() {
@@ -124,11 +138,12 @@ public class SearchFragment extends Fragment {
                         Log.d(TAG, "onSuccess");
                         JSONObject jsonObject = json.jsonObject;
                         try {
-                            JSONArray items = jsonObject.getJSONArray("items");
+                            Type searchListType = new TypeToken<List<Search>>(){}.getType();
+                            List<Search> items = new Gson().fromJson(jsonObject.getJSONArray("items").toString(),searchListType);
                             Log.i(TAG, "Items: " + items.toString());
                             searches.clear();
                             adapter.clear();
-                            searches.addAll(Search.fromJsonArray(items));
+                            searches.addAll(items);
                             adapter.notifyDataSetChanged();
                             Log.i(TAG, "Searches: " + searches.size());
                         } catch (JSONException e) {
