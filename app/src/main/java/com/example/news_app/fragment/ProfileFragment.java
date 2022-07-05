@@ -17,15 +17,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.news_app.LoginActivity;
 import com.example.news_app.R;
-import com.example.news_app.model.User;
-import com.parse.ParseException;
+import com.example.news_app.model.Parse.User;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +38,7 @@ public class ProfileFragment extends Fragment {
     Button btnUpdatePassword;
     EditText etNewPassword;
     Switch aSwitch;
-
+    ImageView imageView3;
 
 
     public ProfileFragment() {

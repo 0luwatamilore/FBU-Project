@@ -1,7 +1,5 @@
 package com.example.news_app;
 
-import static java.security.AccessController.getContext;
-
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -15,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.news_app.model.Video;
+import com.example.news_app.model.video.Video;
 
 import java.util.List;
 
@@ -27,6 +25,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         this.context = context;
         this.videos = videos;
     }
+
 
     @NonNull
     @Override
@@ -65,15 +64,15 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         }
 
         public void bind(Video video) {
-            tvTitle.setText(video.getTitle());
-            tvDescription.setText(video.getDescription());
-            Glide.with(context).load(video.getThumbnail()).into(ivThumbnail);
+            tvTitle.setText(video.getSnippet().getTitle());
+            tvDescription.setText(video.getSnippet().getDescription());
+            Glide.with(context).load(video.getSnippet().getThumbnails().getHigh().getUrl()).into(ivThumbnail);
 
             ivThumbnail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(context,VideoPlayerActivity.class);
-                    i.putExtra("VideoCue", video.getId());
+                    i.putExtra("VideoCue",video.getId());
                     context.startActivity(i);
                 }
             });

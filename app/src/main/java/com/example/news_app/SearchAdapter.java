@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.news_app.model.search.Search;
-import com.example.news_app.model.Video;
 
 import java.util.List;
 

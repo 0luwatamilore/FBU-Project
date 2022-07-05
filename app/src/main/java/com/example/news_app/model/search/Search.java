@@ -1,10 +1,5 @@
 package com.example.news_app.model.search;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Search {
     private String kind;

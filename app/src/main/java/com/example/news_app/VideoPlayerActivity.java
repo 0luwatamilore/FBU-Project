@@ -1,21 +1,14 @@
 package com.example.news_app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.news_app.model.Video;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 public class VideoPlayerActivity extends YouTubeBaseActivity {
-
-    YouTubePlayerView youTubePlayerView;
-    Video video;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

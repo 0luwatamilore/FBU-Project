@@ -1,4 +1,4 @@
-package com.example.news_app.model;
+package com.example.news_app.model.Parse;
 
 import com.parse.ParseClassName;
 import com.parse.ParseUser;

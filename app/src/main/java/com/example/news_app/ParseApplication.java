@@ -2,10 +2,9 @@ package com.example.news_app;
 
 import android.app.Application;
 
-import com.example.news_app.model.User;
+import com.example.news_app.model.Parse.User;
 import com.parse.Parse;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
 
 public class ParseApplication extends Application {
 

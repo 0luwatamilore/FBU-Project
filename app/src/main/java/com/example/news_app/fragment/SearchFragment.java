@@ -1,5 +1,6 @@
 package com.example.news_app.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,30 +9,30 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
-import com.example.news_app.MainActivity;
 import com.example.news_app.R;
 import com.example.news_app.SearchAdapter;
 import com.example.news_app.model.search.Search;
-import com.example.news_app.model.User;
+import com.example.news_app.model.Parse.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,7 +48,7 @@ import okhttp3.Headers;
  */
 public class SearchFragment extends Fragment {
     public static final String TAG = "Search Fragment";
-    private String SEARCH_URL = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=";
+    private String SEARCH_URL = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=100&q=";
     User currentUser;
 //    EditText etSearch;
     RecyclerView rvSearch;
@@ -56,7 +57,10 @@ public class SearchFragment extends Fragment {
     AutoCompleteTextView etSearch;
     List<Search> searches;
 
+
     List<String> search_list;
+
+    ArrayAdapter<String> arrayAdapter;
 
 
     public SearchFragment() {
@@ -78,28 +82,64 @@ public class SearchFragment extends Fragment {
         adapter = new SearchAdapter(getContext(), searches);
         rvSearch.setAdapter(adapter);
         btnEnter = view.findViewById(R.id.btnEnter);
-//        etSearch = view.findViewById(R.id.etSearch);
-        etSearch = view.findViewById(R.id.etSearch);
+        etSearch = (AutoCompleteTextView) view.findViewById(R.id.etSearch);
         rvSearch.setLayoutManager(new LinearLayoutManager(getContext()));
 
         currentUser = (User) ParseUser.getCurrentUser();
         search_list = currentUser.getSearchKeyword();
         Log.i(TAG, "onSuccess!  >>>  " + search_list);
-        etSearch.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,search_list));
+        arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_activated_1,search_list);
+        etSearch.setAdapter(arrayAdapter);
 
 
-
+        // search feature
         btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createSearch(v);
+                arrayAdapter.notifyDataSetChanged();
             }
         });
 
+        // collapses keyboard after autocomplete
+        etSearch.setOnDismissListener(new AutoCompleteTextView.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getApplicationWindowToken(),0);
+            }
+        });
 
+        // Prefetch feature
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        createSearch(view);
+                        arrayAdapter.notifyDataSetChanged();
+                    }
+                },3000);
+
+            }
+        });
 
     }
 
+
+    // Helper Methods
+    // Saving search keywords to database
     public void saveSearch(String search_keyword) {
         User currentUser = (User) ParseUser.getCurrentUser();
         currentUser.addAllUnique("search_keywords", Arrays.asList(search_keyword));
@@ -115,7 +155,8 @@ public class SearchFragment extends Fragment {
                 }
             }
         });
-//        currentUser.getSearchKeyword().add(search_keyword);
+
+
 
     }
 
@@ -125,8 +166,9 @@ public class SearchFragment extends Fragment {
         SEARCH_URL += "&key=AIzaSyD8bq4-Cv1uZ0Xx531Pa5PTsodeR56azzg";
         Log.i(TAG,"Search URL! >>> " + SEARCH_URL);
         saveSearch(searchInput);
+        arrayAdapter.add(searchInput);
         searchRequest();
-        SEARCH_URL = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=";
+        SEARCH_URL = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=100&q=";
     }
 
 

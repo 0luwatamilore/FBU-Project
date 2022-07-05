@@ -8,20 +8,6 @@
         android:layout_height="match_parent">
 
 
-<!--        <EditText-->
-<!--            android:id="@+id/etSearch"-->
-<!--            android:layout_width="260dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentTop="true"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_marginStart="11dp"-->
-<!--            android:layout_marginTop="3dp"-->
-<!--            android:layout_marginEnd="111dp"-->
-<!--            android:layout_toEndOf="@+id/ivBack"-->
-<!--            android:ems="10"-->
-<!--            android:hint="search"-->
-<!--            android:inputType="textPersonName" />-->
-
         <AutoCompleteTextView
             android:id="@+id/etSearch"
             android:layout_width="260dp"
@@ -34,19 +20,8 @@
             android:layout_toEndOf="@+id/ivBack"
             android:ems="10"
             android:hint="search"
-            android:inputType="textPersonName"/>
-
-<!--        <AutoCompleteTextView-->
-<!--            android:id="@+id/atvSearch"-->
-<!--            android:layout_width="247dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/etSearch"-->
-<!--            android:layout_alignParentStart="true"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_marginStart="50dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginEnd="111dp"-->
-<!--            android:hint="Recent Searches" />-->
+            android:inputType="textPersonName"
+            android:completionThreshold="1"/>
 
         <ImageView
             android:id="@+id/ivBack"
