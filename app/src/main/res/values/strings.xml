@@ -1,9 +1,41 @@
 <resources>
     <string name="app_name">News-App</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+<!--     TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="warriors_at_celtics_full_game_6_nba_finals_highlights_june_16_2022">WARRIORS at CELTICS | FULL GAME 6 NBA FINALS HIGHLIGHTS | June 16, 2022</string>
     <string name="stay_up_to_date_on_news_live_scores_and_stats_with_the_nba_app_https_app_link_nba_com_app22_led_by_stephen_curry_s_34_pts_7_reb_and_7_ast_the_golden_state_warriors_defeated_the_boston_celtics_in_game_6_103_90_andrew_wiggins_added_18_pts_6_reb_5_ast_4_stl_and_3_blk_for_the_warriors_in_the_victory_while_jaylen_brown_tallied_34_pts_and_7_reb_for_the_celtics_with_the_victory_the_warriors_have_secured_the_franchise_s_7th_nba_title_and_their_first_since_2018">Stay up-to-date on news, live scores and stats with the NBA App: https://app.link.nba.com/app22 Led by Stephen Curry’s 34 PTS, 7 REB and 7 AST, the Golden State Warriors defeated the Boston Celtics in Game 6, 103-90. Andrew Wiggins added 18 PTS, 6 REB, 5 AST, 4 STL and 3 BLK for the Warriors in the victory, while Jaylen Brown tallied 34 PTS and 7 REB for the Celtics. With the victory, the Warriors have secured the franchise’s 7th NBA title and their first since 2018.</string>
     <string name="profile">Profile</string>
+    <string name="abc_7_chicago">ABC 7 Chicago</string>
+    <string name="sdvadddd">sdvadddd</string>
+    <string name="_2022_07_04t17_00_12z">2022-07-04T17:00:12Z</string>
+    <string name="new_playlist">New Playlist</string>
+    <string name="add">Add</string>
+    <string name="create">Create</string>
+    <string name="profile_fragment">Profile Fragment</string>
+    <string name="log_out">Log Out</string>
+    <string name="update_password">Update Password</string>
+    <string name="light_dark_mode">Light/Dark Mode</string>
+    <string name="new_password">new password</string>
+    <string name="login_screen">Login Screen</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="password">password</string>
+    <string name="login">Login</string>
+    <string name="sign_up_screen">Sign Up Screen</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="sign_Up">Sign Up</string>
+    <string name="Password">Password</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="this_is_the_splash_screen">THIS IS THE SPLASH SCREEN!!</string>
+    <string name="login_attempt">\"Attempting to login \"</string>
+    <string name="login_issue">\"Issue with login! \"</string>
+    <string name="failure">onFailure!</string>
+    <string name="success">onSuccess!</string>
+    <string name="save_Successful">Save Successful</string>
+    <string name="welcome">\"Welcome! \"</string>
+    <string name="vAdapter">VideoAdapter</string>
+    <string name="create_view_holder">onCreateViewHolder</string>
+    <string name="bind_view_holder">\"onBindViewHolder \"</string>
 </resources>

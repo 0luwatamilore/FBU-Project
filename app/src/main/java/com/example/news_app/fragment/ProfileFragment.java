@@ -15,9 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -30,15 +28,14 @@ import com.parse.ParseUser;
  * A simple {@link Fragment} subclass.
  */
 public class ProfileFragment extends Fragment {
-    public static final String TAG = "Profile Fragment";
-    public static final String MYPREFERENCE = "nightModePrefs";
-    public static final String KEY_ISNIGHTMODE = "isNightMode";
+    public static final String TAG = "PROFILE FRAGMENT";
+    public static final String MY_PREFERENCE = "nightModePrefs";
+    public static final String IS_NIGHT_MODE = "isNightMode";
     SharedPreferences sharedPreferences;
     Button btnLogOut;
     Button btnUpdatePassword;
     EditText etNewPassword;
     Switch aSwitch;
-    ImageView imageView3;
 
 
     public ProfileFragment() {
@@ -56,6 +53,7 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // USER LOG-OUT
         btnLogOut = view.findViewById(R.id.btnLogOut);
         btnLogOut.setOnClickListener(v -> {
             ParseUser.logOut();
@@ -65,55 +63,43 @@ public class ProfileFragment extends Fragment {
             ProfileFragment.super.onDestroyView();
         });
 
-
+        // ACTIVATE NIGHT MODE
         aSwitch = view.findViewById(R.id.switchl);
-        sharedPreferences = getContext().getSharedPreferences(MYPREFERENCE, Context.MODE_PRIVATE);
+        sharedPreferences = getContext().getSharedPreferences(MY_PREFERENCE, Context.MODE_PRIVATE);
 
         checkNightModeActivated();
 
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    saveNightModeState(true);
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    saveNightModeState(false);
-                }
-                getActivity().recreate();
+        aSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                saveNightModeState(true);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                saveNightModeState(false);
             }
+            getActivity().recreate();
         });
 
-
-
+        // UPDATE USER PASSWORD
         btnUpdatePassword = view.findViewById(R.id.btnUpdatePassword);
         btnUpdatePassword.setOnClickListener(v -> {
             etNewPassword = view.findViewById(R.id.etNewPassword);
             updatePassword();
         });
-
     }
 
 
-
-
-
-    // Fragment Methods
-
     private void saveNightModeState(boolean nightMode) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putBoolean(KEY_ISNIGHTMODE, nightMode);
-
+        editor.putBoolean(IS_NIGHT_MODE, nightMode);
         editor.apply();
     }
 
     private void checkNightModeActivated() {
-        if(sharedPreferences.getBoolean(KEY_ISNIGHTMODE, false)){
+        if (sharedPreferences.getBoolean(IS_NIGHT_MODE, false)) {
             aSwitch.setChecked(true);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }else{
+        } else {
             aSwitch.setChecked(false);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
@@ -127,14 +113,10 @@ public class ProfileFragment extends Fragment {
             currentUser.setPassword(newPassword);
             // Saves the object.
             currentUser.saveInBackground(e -> {
-                if(e==null){
+                if (e == null) {
                     //Save successful
-                    Log.i(TAG, "New Password!  >>>  " + currentUser.getSearchKeyword());
-                    Log.i(TAG, "New Password!  >>>  " + currentUser.getFirstName());
-                    Log.i(TAG, "New Password!  >>>  " + currentUser.getUsername());
-                    Log.i(TAG, "New Password!  >>>  " + currentUser.getLastName());
-                    Toast.makeText(getContext(), "Save Successful", Toast.LENGTH_SHORT).show();
-                }else{
+                    Toast.makeText(getContext(), R.string.save_Successful, Toast.LENGTH_SHORT).show();
+                } else {
                     // Something went wrong while saving
                     Log.e(TAG, "Update error " + e);
                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();

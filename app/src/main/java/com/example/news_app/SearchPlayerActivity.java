@@ -20,7 +20,7 @@ public class SearchPlayerActivity extends YouTubeBaseActivity {
         // resolve the player view from the layout
         YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.search_player_view);
 
-        playerView.initialize("AIzaSyD8bq4-Cv1uZ0Xx531Pa5PTsodeR56azzg", new YouTubePlayer.OnInitializedListener() {
+        playerView.initialize(getString(R.string.API_KEY), new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 // do any work here to cue video, play video, etc.

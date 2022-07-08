@@ -3,38 +3,100 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="5dp"
-        android:text="@string/warriors_at_celtics_full_game_6_nba_finals_highlights_june_16_2022" />
-
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="match_parent"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivThumbnail"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/warriors_at_celtics_full_game_6_nba_finals_highlights_june_16_2022"
+        android:textStyle="bold" />
+
+
+    <Button
+        android:id="@+id/ivMenu"
+        android:layout_width="32dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/ivThumbnail"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="9dp"
+        android:layout_toEndOf="@+id/tvTitle"
+        android:onClick="showCreateDialog"
+        android:src="@drawable/ic_baseline_reorder_24" />
+
+    <TextView
+        android:id="@+id/tvChannelTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvTitle"
+        android:text="@string/abc_7_chicago" />
+
+    <TextView
+        android:id="@+id/tvSeparator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvChannelTitle"
+        android:text="#" />
+
+    <TextView
+        android:id="@+id/tvPublishedAt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvSeparator"
+        android:text="@string/_2022_07_04t17_00_12z" />
+
+    <TextView
+        android:id="@+id/tvSeparator2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvPublishedAt"
+        android:text="#" />
+
+    <TextView
+        android:id="@+id/tvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:text="@string/stay_up_to_date_on_news_live_scores_and_stats_with_the_nba_app_https_app_link_nba_com_app22_led_by_stephen_curry_s_34_pts_7_reb_and_7_ast_the_golden_state_warriors_defeated_the_boston_celtics_in_game_6_103_90_andrew_wiggins_added_18_pts_6_reb_5_ast_4_stl_and_3_blk_for_the_warriors_in_the_victory_while_jaylen_brown_tallied_34_pts_and_7_reb_for_the_celtics_with_the_victory_the_warriors_have_secured_the_franchise_s_7th_nba_title_and_their_first_since_2018" />
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvSeparator2"
+        android:text="PT18M40S" />
+
 
     <ImageView
         android:id="@+id/ivThumbnail"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_below="@+id/tvTitle"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="0dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="2dp"
         tools:srcCompat="@tools:sample/avatars" />
+
+
 </RelativeLayout>

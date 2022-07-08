@@ -14,8 +14,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         new Handler().postDelayed(() -> {
-            startActivity(new Intent(SplashScreenActivity.this,LoginActivity.class));
+            startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
             finish();
-        },1000);
+        }, 1000);
     }
 }

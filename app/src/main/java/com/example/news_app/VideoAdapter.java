@@ -18,10 +18,12 @@ import com.example.news_app.model.video.Video;
 import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
-    private Context context;
-    private List<Video> videos;
 
-    public VideoAdapter (Context context, List<Video> videos){
+    private final Context context;
+    private final List<Video> videos;
+
+
+    public VideoAdapter(Context context, List<Video> videos) {
         this.context = context;
         this.videos = videos;
     }
@@ -30,14 +32,14 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d("VideoAdapter", "onCreateViewHolder");
+        Log.d(context.getString(R.string.vAdapter), context.getString(R.string.create_view_holder));
         View videoView = LayoutInflater.from(context).inflate(R.layout.item_video, parent, false);
         return new ViewHolder(videoView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d("VideoAdapter", "nBindViewHolder " + position);
+        Log.d(context.getString(R.string.vAdapter), context.getString(R.string.bind_view_holder) + position);
         // get the movie at the passed in position
         Video video = videos.get(position);
         // Bind the movie in to the VH
@@ -50,43 +52,42 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         return videos.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvTitle;
-        TextView tvDescription;
         ImageView ivThumbnail;
+        TextView tvTitle;
+        TextView tvChannelTitle;
+        TextView tvDuration;
+        TextView tvPublishedAt;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvDescription = itemView.findViewById(R.id.tvDescription);
             ivThumbnail = itemView.findViewById(R.id.ivThumbnail);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
+            tvChannelTitle = itemView.findViewById(R.id.tvChannelTitle);
+            tvDuration = itemView.findViewById(R.id.tvDuration);
+            tvPublishedAt = itemView.findViewById(R.id.tvPublishedAt);
         }
 
         public void bind(Video video) {
             tvTitle.setText(video.getSnippet().getTitle());
-            tvDescription.setText(video.getSnippet().getDescription());
+            tvChannelTitle.setText(video.getSnippet().getChannelTitle());
             Glide.with(context).load(video.getSnippet().getThumbnails().getHigh().getUrl()).into(ivThumbnail);
+            tvPublishedAt.setText(video.getSnippet().getPublishedAt());
+            tvDuration.setText(video.getContentDetails().getDuration());
 
-            ivThumbnail.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(context,VideoPlayerActivity.class);
-                    i.putExtra("VideoCue",video.getId());
-                    context.startActivity(i);
-                }
+            ivThumbnail.setOnClickListener(v -> {
+                Intent i = new Intent(context, VideoPlayerActivity.class);
+                i.putExtra("VideoCue", video.getId());
+                context.startActivity(i);
             });
         }
+
     }
+
 
     public void clear() {
         videos.clear();
-        notifyDataSetChanged();
-    }
-
-    // Add a list of items -- change to type used
-    public void addAll(List<Video> list) {
-        videos.addAll(list);
         notifyDataSetChanged();
     }
 
