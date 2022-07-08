@@ -12,8 +12,20 @@ public class User extends ParseUser {
     public static final String KEY_FIRSTNAME = "firstName";
     public static final String KEY_LASTNAME = "lastName";
     public static final String KEY_SEARCH_KEYWORDS = "search_keywords";
+    public static final String KEY_HISTORY = "search_history";
+    public static final String KEY_PLAYLIST = "playlists";
 
-    public String getFirstName(){
+
+    public List<String> getPlaylist() {
+        List<String> playlists = getList(KEY_PLAYLIST);
+        if (playlists != null) {
+            return getList(KEY_PLAYLIST);
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    public String getFirstName() {
         return getString(KEY_FIRSTNAME);
     }
 
@@ -31,15 +43,24 @@ public class User extends ParseUser {
 
     public List<String> getSearchKeyword() {
         List<String> search_keywords = getList(KEY_SEARCH_KEYWORDS);
-        if (search_keywords!=null){
+        if (search_keywords != null) {
             return getList(KEY_SEARCH_KEYWORDS);
-        }else{
+        } else {
             return new ArrayList<>();
         }
     }
 
     public void setKeySearchKeywords(List<String> search_keywords) {
         put(KEY_SEARCH_KEYWORDS, search_keywords);
+    }
+
+    public List<String> getHistory() {
+        List<String> history = getList(KEY_HISTORY);
+        if (history != null) {
+            return getList(KEY_HISTORY);
+        } else {
+            return new ArrayList<>();
+        }
     }
 
 }

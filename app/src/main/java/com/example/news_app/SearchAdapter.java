@@ -18,8 +18,8 @@ import com.example.news_app.model.search.Search;
 import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
-    private Context context;
-    private List<Search> searches;
+    private final Context context;
+    private final List<Search> searches;
 
 
     public SearchAdapter(Context context, List<Search> searches) {
@@ -30,14 +30,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d("SearchAdapter", "onCreateViewHolder");
+        Log.d("SearchAdapter", context.getString(R.string.create_view_holder));
         View searchView = LayoutInflater.from(context).inflate(R.layout.item_search, parent, false);
         return new ViewHolder(searchView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d("SearchAdapter", "onBindViewHolder " + position);
+        Log.d("SearchAdapter", context.getString(R.string.bind_view_holder) + position);
         // get the movie at the passed in position
         Search search = searches.get(position);
         // Bind the movie in to the VH
@@ -50,9 +50,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView search_title;
-        private TextView search_description;
-        private ImageView search_thumbnail;
+        private final TextView search_title;
+        private final TextView search_description;
+        private final ImageView search_thumbnail;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,13 +67,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             Glide.with(context).load(search.getSnippet().getThumbnails().getHigh().getUrl()).into(search_thumbnail);
 
 
-            search_thumbnail.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(context, SearchPlayerActivity.class);
-                    i.putExtra("SearchCue", search.getId().getVideoId() != null ? search.getId().getVideoId() : search.getId().getChannelId());
-                    context.startActivity(i);
-                }
+            search_thumbnail.setOnClickListener(v -> {
+                Intent i = new Intent(context, SearchPlayerActivity.class);
+                i.putExtra("SearchCue", search.getId().getVideoId() != null ? search.getId().getVideoId() : search.getId().getChannelId());
+                context.startActivity(i);
             });
         }
     }
@@ -83,9 +80,4 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
-    // Add a list of items -- change to type used
-    public void addAll(List<Search> list) {
-        searches.addAll(list);
-        notifyDataSetChanged();
-    }
 }

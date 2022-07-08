@@ -9,9 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.parse.SignUpCallback;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -47,8 +45,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-
-    // Helper Methods
     private void signupUser(String firstName, String lastName, String username, String password, String email) {
         ParseUser user = new ParseUser();
         user.setUsername(username);
@@ -60,14 +56,13 @@ public class SignUpActivity extends AppCompatActivity {
                 Log.e(TAG, "Issues with Sign Up! ", e);
                 Toast.makeText(SignUpActivity.this, "Issue with Sign Up ", Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(SignUpActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
-            Log.i(TAG, "Successful! " + user);
+            Toast.makeText(SignUpActivity.this, getString(R.string.welcome), Toast.LENGTH_SHORT).show();
             goMainActivity();
         });
     }
 
     private void goMainActivity() {
-        Intent i = new Intent (SignUpActivity.this, MainActivity.class);
+        Intent i = new Intent(SignUpActivity.this, MainActivity.class);
         startActivity(i);
         finish();
     }
