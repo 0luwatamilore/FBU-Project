@@ -5,10 +5,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/etSearch"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
@@ -20,7 +20,8 @@
             android:layout_toEndOf="@+id/ivBack"
             android:ems="10"
             android:hint="search"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:completionThreshold="1"/>
 
         <ImageView
             android:id="@+id/ivBack"

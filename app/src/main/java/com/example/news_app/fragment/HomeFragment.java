@@ -1,6 +1,5 @@
 package com.example.news_app.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,17 +15,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
-import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.news_app.R;
 import com.example.news_app.VideoAdapter;
 import com.example.news_app.VideoPlayerActivity;
-import com.example.news_app.model.Video;
+import com.example.news_app.model.video.Video;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,9 +104,13 @@ public class HomeFragment extends Fragment {
                         Log.d(TAG, "onSuccess");
                         JSONObject jsonObject = json.jsonObject;
                         try {
-                            JSONArray items = jsonObject.getJSONArray("items");
+                            Type movieListType = new TypeToken<List<Video>>(){}.getType();
+                            List<Video> items = new Gson().fromJson(jsonObject.getJSONArray("items").toString(), movieListType);
                             Log.i(TAG, "Items: " + items.toString());
-                            allVideos.addAll(Video.fromJsonArray(items));
+                            allVideos.clear();
+                            adapter.clear();
+                            allVideos.addAll(items);
+                            adapter.notifyDataSetChanged();
                             Log.i(TAG, "Videos: " + allVideos.size());
                             adapter.notifyDataSetChanged();
                             swipeContainer.setRefreshing(false);
@@ -118,6 +124,9 @@ public class HomeFragment extends Fragment {
                     public void onFailure(int statusCode, Headers headers, String errorResponse, Throwable t) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         Log.e(TAG,"onFailure!");
+                        Log.e(TAG,"statusCode! >>>> " + statusCode);
+                        Log.e(TAG,"errorResponse! >>>> " + errorResponse);
+                        Log.e(TAG,"Header! >>>> " + headers.toString());
                     }
                 }
         );

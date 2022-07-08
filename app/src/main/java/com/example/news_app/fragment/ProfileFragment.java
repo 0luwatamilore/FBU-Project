@@ -16,11 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.news_app.LoginActivity;
 import com.example.news_app.R;
+import com.example.news_app.model.Parse.User;
 import com.parse.ParseUser;
 
 /**
@@ -33,8 +36,9 @@ public class ProfileFragment extends Fragment {
     SharedPreferences sharedPreferences;
     Button btnLogOut;
     Button btnUpdatePassword;
+    EditText etNewPassword;
     Switch aSwitch;
-
+    ImageView imageView3;
 
 
     public ProfileFragment() {
@@ -62,7 +66,6 @@ public class ProfileFragment extends Fragment {
         });
 
 
-
         aSwitch = view.findViewById(R.id.switchl);
         sharedPreferences = getContext().getSharedPreferences(MYPREFERENCE, Context.MODE_PRIVATE);
 
@@ -82,27 +85,21 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+
+
         btnUpdatePassword = view.findViewById(R.id.btnUpdatePassword);
         btnUpdatePassword.setOnClickListener(v -> {
-            ParseUser currentUser = ParseUser.getCurrentUser();
-            if (currentUser != null) {
-                // Other attributes than "email" will remain unchanged!
-                currentUser.put("password", "nolan");
-                // Saves the object.
-                currentUser.saveInBackground(e -> {
-                    if(e==null){
-                        //Save successfull
-                        Toast.makeText(getContext(), "Save Successful", Toast.LENGTH_SHORT).show();
-                    }else{
-                        // Something went wrong while saving
-                        Log.e(TAG, "Update error " + e);
-                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+            etNewPassword = view.findViewById(R.id.etNewPassword);
+            updatePassword();
         });
 
     }
+
+
+
+
+
+    // Fragment Methods
 
     private void saveNightModeState(boolean nightMode) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -119,6 +116,30 @@ public class ProfileFragment extends Fragment {
         }else{
             aSwitch.setChecked(false);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
+
+    private void updatePassword() {
+        User currentUser = (User) ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            // Other attributes than "email" will remain unchanged!
+            String newPassword = etNewPassword.getText().toString();
+            currentUser.setPassword(newPassword);
+            // Saves the object.
+            currentUser.saveInBackground(e -> {
+                if(e==null){
+                    //Save successful
+                    Log.i(TAG, "New Password!  >>>  " + currentUser.getSearchKeyword());
+                    Log.i(TAG, "New Password!  >>>  " + currentUser.getFirstName());
+                    Log.i(TAG, "New Password!  >>>  " + currentUser.getUsername());
+                    Log.i(TAG, "New Password!  >>>  " + currentUser.getLastName());
+                    Toast.makeText(getContext(), "Save Successful", Toast.LENGTH_SHORT).show();
+                }else{
+                    // Something went wrong while saving
+                    Log.e(TAG, "Update error " + e);
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 

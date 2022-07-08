@@ -50,18 +50,34 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String email, String password) {
-        Log.i(TAG,"Attempting to login " + email);
+        Log.i(TAG, "Attempting to login " + email);
 
-        ParseUser.logInInBackground(email, password, (user, e) -> {
-            if (e != null) {
-                Toast.makeText(LoginActivity.this, "Issue with login! ", Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "Issues with Login! ", e);
-                return;
+        ParseUser.logInInBackground(email, password, new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException e) {
+                if (e != null) {
+                    Toast.makeText(LoginActivity.this, "Issue with login! ", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Issues with Login! ", e);
+                    return;
+                }
+                goMainActivity();
+                Toast.makeText(LoginActivity.this, "Welcome! ", Toast.LENGTH_SHORT).show();
             }
-            goMainActivity();
-            Toast.makeText(LoginActivity.this, "Welcome! ", Toast.LENGTH_SHORT).show();
-            });
-        }
+        });
+    }
+
+
+//        ParseUser.logInInBackground(email, password, (user, e) -> {
+//            public void done
+//            if (e != null) {
+//                Toast.makeText(LoginActivity.this, "Issue with login! ", Toast.LENGTH_SHORT).show();
+//                Log.e(TAG, "Issues with Login! ", e);
+//                return;
+//            }
+//            goMainActivity();
+//            Toast.makeText(LoginActivity.this, "Welcome! ", Toast.LENGTH_SHORT).show();
+//            });
+//        }
 
     private void goMainActivity() {
         Intent i = new Intent(this, MainActivity.class);

@@ -46,6 +46,9 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+
+
+    // Helper Methods
     private void signupUser(String firstName, String lastName, String username, String password, String email) {
         ParseUser user = new ParseUser();
         user.setUsername(username);
@@ -53,14 +56,13 @@ public class SignUpActivity extends AppCompatActivity {
         user.put("firstName", firstName);
         user.put("lastName", lastName);
         user.signUpInBackground(e -> {
-            if (e==null) {
-                Toast.makeText(SignUpActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
-                Log.i(TAG,"Successful! " + user);
-                goMainActivity();
-            }else{
+            if (e != null) {
                 Log.e(TAG, "Issues with Sign Up! ", e);
                 Toast.makeText(SignUpActivity.this, "Issue with Sign Up ", Toast.LENGTH_SHORT).show();
             }
+            Toast.makeText(SignUpActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "Successful! " + user);
+            goMainActivity();
         });
     }
 
@@ -69,4 +71,5 @@ public class SignUpActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
 }

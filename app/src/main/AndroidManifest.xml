@@ -24,6 +24,9 @@
         android:theme="@style/Theme.NewsApp"
         tools:targetApi="31">
         <activity
+            android:name=".SearchPlayerActivity"
+            android:exported="false" />
+        <activity
             android:name=".VideoPlayerActivity"
             android:exported="false" />
         <activity

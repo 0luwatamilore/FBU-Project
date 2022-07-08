@@ -8,17 +8,17 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
-public class VideoPlayerActivity extends YouTubeBaseActivity {
+public class SearchPlayerActivity extends YouTubeBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_player);
+        setContentView(R.layout.activity_search_player);
 
-        String videoId = getIntent().getStringExtra("VideoCue");
+        String videoId = getIntent().getStringExtra("SearchCue");
 
         // resolve the player view from the layout
-        YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.youtube_player_view);
+        YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.search_player_view);
 
         playerView.initialize("AIzaSyD8bq4-Cv1uZ0Xx531Pa5PTsodeR56azzg", new YouTubePlayer.OnInitializedListener() {
             @Override
@@ -28,11 +28,10 @@ public class VideoPlayerActivity extends YouTubeBaseActivity {
             }
 
             @Override
-            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {// log the error
+            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+                // log the error
                 Log.e("VideoPlayerActivity", "Error initializing YouTube player");
-                Log.e("VideoPlayerActivity", "youTubeInitializationResult  >>> " + youTubeInitializationResult.toString());
             }
         });
     }
-
 }

@@ -13,8 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.news_app.model.Search;
-import com.example.news_app.model.Video;
+import com.example.news_app.model.search.Search;
 
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         return searches.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         private TextView search_title;
         private TextView search_description;
         private ImageView search_thumbnail;
@@ -63,19 +62,30 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         }
 
         public void bind(Search search) {
-            search_title.setText(search.getTitle());
-            search_description.setText(search.getDescription());
-            Glide.with(context).load(search.getThumbnail()).into(search_thumbnail);
+            search_title.setText(search.getSnippet().getTitle());
+            search_description.setText(search.getSnippet().getDescription());
+            Glide.with(context).load(search.getSnippet().getThumbnails().getHigh().getUrl()).into(search_thumbnail);
 
 
             search_thumbnail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(context,VideoPlayerActivity.class);
-                    i.putExtra("SearchCue", search.getVideoId());
+                    Intent i = new Intent(context, SearchPlayerActivity.class);
+                    i.putExtra("SearchCue", search.getId().getVideoId() != null ? search.getId().getVideoId() : search.getId().getChannelId());
                     context.startActivity(i);
                 }
             });
         }
+    }
+
+    public void clear() {
+        searches.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(List<Search> list) {
+        searches.addAll(list);
+        notifyDataSetChanged();
     }
 }
