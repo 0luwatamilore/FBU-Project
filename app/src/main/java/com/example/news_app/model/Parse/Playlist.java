@@ -12,14 +12,13 @@ public class Playlist extends ParseObject {
     public static final String PLAYLIST_USER = "user";
     public static final String PLAYLIST_Name = "playlist_name";
     public static final String PLAYLIST_ITEMS = "playlist_items";
-    public static final String CREATED_KEY = "createdAt";
 
     public ParseUser getUser() {
         return getParseUser(PLAYLIST_USER);
     }
 
-    public void setPlaylistUser(String object_id) {
-        put(PLAYLIST_USER, object_id);
+    public void setUser(ParseUser user) {
+        put(PLAYLIST_USER, user);
     }
 
     public String getPLAYLIST_Name() {

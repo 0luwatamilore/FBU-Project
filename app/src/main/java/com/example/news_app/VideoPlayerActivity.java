@@ -1,6 +1,5 @@
 package com.example.news_app;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,20 +14,18 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
-import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class VideoPlayerActivity extends YouTubeBaseActivity {
 
     private static final String TAG = "VideoPlayerActivity: ";
+    private User currentUser;
     private String videoId;
     private EditText etPlaylistName;
+    private EditText etNewPlaylistName;
     private Button btn_Add_To_Playlist;
 
     @Override
@@ -36,6 +33,7 @@ public class VideoPlayerActivity extends YouTubeBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
 
+        currentUser = (User) ParseUser.getCurrentUser();
         videoId = getIntent().getStringExtra("VideoCue");
 
         // resolve the player view from the layout
@@ -50,26 +48,68 @@ public class VideoPlayerActivity extends YouTubeBaseActivity {
 
             @Override
             public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {// log the error
-                Log.e("VideoPlayerActivity", "Error initializing YouTube player");
-                Log.e("VideoPlayerActivity", "youTubeInitializationResult  >>> " + youTubeInitializationResult.toString());
+                Log.e(TAG, "Error initializing YouTube player");
+                Log.e(TAG, "youTubeInitializationResult  >>> " + youTubeInitializationResult.toString());
             }
         });
-
         btn_Add_To_Playlist = findViewById(R.id.btn_Add_To_Playlist);
         btn_Add_To_Playlist.setOnClickListener(v -> Add_Dialog(v));
-
-
     }
 
 
-    //   Helper Methods
+    // User can Add the current video to an existing playlist
+    public void Add_Dialog(View view) {
+        final AlertDialog.Builder alert = new AlertDialog.Builder(VideoPlayerActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.update_playlist_dialog, null);
+        etPlaylistName = (EditText) mView.findViewById(R.id.etPlaylistName);
+        Button btnCancel = (Button) mView.findViewById(R.id.btnCancel);
+        Button btnAdd = (Button) mView.findViewById(R.id.btnAdd);
+        Button btnNew = (Button) mView.findViewById(R.id.btnNew);
+        alert.setView(mView);
+        final AlertDialog alertDialog = alert.create();
+        alertDialog.setCanceledOnTouchOutside(true);
+        btnCancel.setOnClickListener(v -> alertDialog.dismiss());
+        btnAdd.setOnClickListener(v -> {
+            add_to_playlist();
+            alertDialog.dismiss();
+        });
 
+        btnNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                create_dialog();
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+    public void create_dialog() {
+        final AlertDialog.Builder alert = new AlertDialog.Builder(VideoPlayerActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.create_playlist_dialog, null);
+        etNewPlaylistName = (EditText) mView.findViewById(R.id.etNewPlaylistName);
+        Button btnCancel = (Button) mView.findViewById(R.id.btnCancel);
+        Button btnCreate = (Button) mView.findViewById(R.id.btnCreate);
+        alert.setView(mView);
+        final AlertDialog alertDialog = alert.create();
+        alertDialog.setCanceledOnTouchOutside(true);
+        btnCancel.setOnClickListener(v -> alertDialog.dismiss());
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                create_playlist();
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+    // Adds the video to an already created playlist
     public void add_to_playlist() {
-
         String playlistName = etPlaylistName.getText().toString().toLowerCase();
-        User currentUser = (User) ParseUser.getCurrentUser();
         String id = currentUser.getObjectId();
-//         specify what type of data we want to query - Playlist.class
         ParseQuery<Playlist> query = ParseQuery.getQuery(Playlist.class);
         query.whereContains("user", id);
         query.whereEqualTo("playlist_name", playlistName);
@@ -83,39 +123,34 @@ public class VideoPlayerActivity extends YouTubeBaseActivity {
                 object.saveInBackground(e1 -> {
                     if (e1 == null) {
                         // Success
-                        Log.i(TAG, "onSuccess!  >>>  " + object.getPlaylistItems());
+                        Toast.makeText(this, "Added to Playlist!", Toast.LENGTH_SHORT).show();
                     } else {
                         // Error
-                        Log.i(TAG, "onFailure!  >>>  " + object.getPlaylistItems() + e1);
+                        Log.e(TAG, "onFailure!  >>>  " + object.getPlaylistItems() + e1);
                     }
                 });
-                Log.i("VideoPlayerActivity: ", "Playlist Name: " + object.getPLAYLIST_Name() + ", objectId: " + object.getObjectId());
             }
         });
     }
 
-    public void Add_Dialog(View view) {
-        final AlertDialog.Builder alert = new AlertDialog.Builder(VideoPlayerActivity.this);
-        View mView = getLayoutInflater().inflate(R.layout.layout_add_dialog, null);
-
-        etPlaylistName = (EditText) mView.findViewById(R.id.etPlaylistName);
-
-        Button btnCancel = (Button) mView.findViewById(R.id.btnCancel);
-        Button btnOk = (Button) mView.findViewById(R.id.btnOk);
-
-        alert.setView(mView);
-
-        final AlertDialog alertDialog = alert.create();
-        alertDialog.setCanceledOnTouchOutside(false);
-
-        btnCancel.setOnClickListener(v -> alertDialog.dismiss());
-
-        btnOk.setOnClickListener(v -> {
-            Log.i("VideoPlayerActivity", "Add_Dialog  >>>   Success");
-            add_to_playlist();
-            alertDialog.dismiss();
-        });
-
-        alertDialog.show();
+    // Automatically adds the video to the newly created playlist
+    private void create_playlist() {
+        String NewPlaylistName = etNewPlaylistName.getText().toString().toLowerCase();
+        String id = (String) currentUser.getObjectId();
+        if(etNewPlaylistName.getText().toString().length() != 0) {
+            Playlist playlist = new Playlist();
+            playlist.setPLAYLIST_Name(NewPlaylistName);
+            playlist.setUser(currentUser);
+            playlist.addAllUnique("playlist_items", Arrays.asList(videoId));
+            playlist.saveInBackground(e -> {
+                if (e==null) {
+                    Toast.makeText(this, "Playlist Created!", Toast.LENGTH_SHORT).show();
+                }else{
+                    Log.e(TAG, e.getMessage());
+                }
+            });
+        }else{
+            Log.e(TAG, "Please enter a title and description");
+        }
     }
 }
