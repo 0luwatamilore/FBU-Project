@@ -1,6 +1,5 @@
 package com.example.news_app;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,14 +14,10 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
-import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class VideoPlayerActivity extends YouTubeBaseActivity {
 
@@ -63,7 +58,6 @@ public class VideoPlayerActivity extends YouTubeBaseActivity {
 
 
     //   Helper Methods
-
     public void add_to_playlist() {
 
         String playlistName = etPlaylistName.getText().toString().toLowerCase();

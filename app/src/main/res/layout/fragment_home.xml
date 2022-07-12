@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.HomeFragment">
+    <include layout="@layout/home_toolbar"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
+        android:layout_marginTop="40dp"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView

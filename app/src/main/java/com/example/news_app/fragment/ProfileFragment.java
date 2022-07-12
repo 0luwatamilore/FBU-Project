@@ -1,14 +1,20 @@
 package com.example.news_app.fragment;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,9 +26,12 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.news_app.LoginActivity;
+import com.example.news_app.NotificationReceiver;
 import com.example.news_app.R;
 import com.example.news_app.model.Parse.User;
 import com.parse.ParseUser;
+
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +45,8 @@ public class ProfileFragment extends Fragment {
     Button btnUpdatePassword;
     EditText etNewPassword;
     Switch aSwitch;
+
+    Button btnNotification;
 
 
     public ProfileFragment() {
@@ -77,7 +88,9 @@ public class ProfileFragment extends Fragment {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 saveNightModeState(false);
             }
-            getActivity().recreate();
+
+            FragmentTransaction tr = getFragmentManager().beginTransaction();
+            tr.attach(ProfileFragment.this).commit();
         });
 
         // UPDATE USER PASSWORD
@@ -86,6 +99,50 @@ public class ProfileFragment extends Fragment {
             etNewPassword = view.findViewById(R.id.etNewPassword);
             updatePassword();
         });
+
+        createNotificationChannel();
+
+        btnNotification = view.findViewById(R.id.btnNotification);
+        btnNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(getContext(), "Reminder Set!", Toast.LENGTH_SHORT).show();
+                Log.i("tag", "Time  >>>>  " + Calendar.getInstance().getTime());
+                setAlarm();
+            }
+        });
+    }
+
+    private void setAlarm() {
+
+        Calendar calendar = Calendar.getInstance();
+        Calendar now = Calendar.getInstance();
+
+        calendar.set(Calendar.HOUR_OF_DAY, 3);
+        calendar.set(Calendar.MINUTE, 18);
+        calendar.set(Calendar.SECOND, 30);
+
+        if(calendar.getTime().after(now.getTime())) {
+            AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(getContext().ALARM_SERVICE);
+
+            Intent alarmIntent = new Intent(getContext(), NotificationReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
+    }
+    private void createNotificationChannel() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "NewChannel";
+            String description = "Channel for App Reminder";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("new notification", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getContext().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
 
