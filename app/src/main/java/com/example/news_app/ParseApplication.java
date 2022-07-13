@@ -2,6 +2,7 @@ package com.example.news_app;
 
 import android.app.Application;
 
+import com.example.news_app.model.Parse.History;
 import com.example.news_app.model.Parse.Playlist;
 import com.example.news_app.model.Parse.User;
 import com.parse.Parse;
@@ -14,6 +15,7 @@ public class ParseApplication extends Application {
         super.onCreate();
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Playlist.class);
+        ParseObject.registerSubclass(History.class);
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("vf5W5u7wdTcn1f5HXaNmIuy6U2Zl9CrdDZpDmOyS")
                 // if defined

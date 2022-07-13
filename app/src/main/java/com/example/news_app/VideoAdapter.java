@@ -2,6 +2,7 @@ package com.example.news_app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.news_app.model.video.Video;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
@@ -79,6 +81,17 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             ivThumbnail.setOnClickListener(v -> {
                 Intent i = new Intent(context, VideoPlayerActivity.class);
                 i.putExtra("VideoCue", video.getId());
+                Log.i("gg", "adapter   >>>>>>  " + video.getId());
+                i.putExtra("ChannelTitleCue", video.getSnippet().getChannelTitle());
+                Log.i("gg", "adapter   >>>>>>  " + video.getSnippet().getChannelTitle());
+                i.putExtra("TitleCue", video.getSnippet().getTitle());
+                Log.i("gg", "adapter   >>>>>>  " + video.getSnippet().getTitle());
+                i.putExtra("PublishedAtCue", video.getSnippet().getPublishedAt());
+                Log.i("gg", "adapter   >>>>>>  " + video.getSnippet().getPublishedAt());
+                i.putExtra("DurationCue", video.getContentDetails().getDuration());
+                Log.i("gg", "adapter   >>>>>>  " + video.getContentDetails().getDuration());
+                i.putExtra("ThumbnailsCue", video.getSnippet().getThumbnails().getHigh().getUrl());
+                Log.i("gg", "adapter   >>>>>>  " + video.getSnippet().getThumbnails().getHigh().getUrl());
                 context.startActivity(i);
             });
         }

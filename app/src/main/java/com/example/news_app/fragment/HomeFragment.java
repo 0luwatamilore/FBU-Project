@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -61,8 +62,12 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        final View view;
+        Bundle bundle = getArguments();
+//        int pageNumber = bundle.getInt("pageNumber");
+        view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        return view;
     }
 
     @Override
@@ -107,7 +112,7 @@ public class HomeFragment extends Fragment {
         client.get(NOW_PLAYING_URL, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, getString(R.string.success));
+                Log.d(TAG, getContext().getString(R.string.success));
                 JSONObject jsonObject = json.jsonObject;
                 try {
                     Type movieListType = new TypeToken<List<Video>>() {
@@ -129,7 +134,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(int statusCode, Headers headers, String errorResponse, Throwable t) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                Log.e(TAG, getString(R.string.failure));
+                Log.e(TAG, getContext().getString(R.string.failure));
                 Log.e(TAG, "statusCode! >>>> " + statusCode);
                 Log.e(TAG, "errorResponse! >>>> " + errorResponse);
                 Log.e(TAG, "Header! >>>> " + headers.toString());
