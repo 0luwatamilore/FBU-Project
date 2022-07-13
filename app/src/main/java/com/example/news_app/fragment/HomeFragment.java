@@ -62,12 +62,8 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view;
-        Bundle bundle = getArguments();
-//        int pageNumber = bundle.getInt("pageNumber");
-        view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        return view;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override

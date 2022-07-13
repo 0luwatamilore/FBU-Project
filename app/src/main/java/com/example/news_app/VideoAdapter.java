@@ -81,17 +81,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             ivThumbnail.setOnClickListener(v -> {
                 Intent i = new Intent(context, VideoPlayerActivity.class);
                 i.putExtra("VideoCue", video.getId());
-                Log.i("gg", "adapter   >>>>>>  " + video.getId());
-                i.putExtra("ChannelTitleCue", video.getSnippet().getChannelTitle());
-                Log.i("gg", "adapter   >>>>>>  " + video.getSnippet().getChannelTitle());
                 i.putExtra("TitleCue", video.getSnippet().getTitle());
-                Log.i("gg", "adapter   >>>>>>  " + video.getSnippet().getTitle());
-                i.putExtra("PublishedAtCue", video.getSnippet().getPublishedAt());
-                Log.i("gg", "adapter   >>>>>>  " + video.getSnippet().getPublishedAt());
-                i.putExtra("DurationCue", video.getContentDetails().getDuration());
-                Log.i("gg", "adapter   >>>>>>  " + video.getContentDetails().getDuration());
                 i.putExtra("ThumbnailsCue", video.getSnippet().getThumbnails().getHigh().getUrl());
-                Log.i("gg", "adapter   >>>>>>  " + video.getSnippet().getThumbnails().getHigh().getUrl());
                 context.startActivity(i);
             });
         }

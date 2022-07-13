@@ -101,7 +101,7 @@ public class VideoPlayerActivity extends YouTubeBaseActivity {
         query.whereContains("user", id);
         query.whereEqualTo("videoId", videoId);
         query.findInBackground((objects, e) -> {
-            if(e != null){
+            if (e != null) {
                 Log.e(TAG,"Issues with getting posts", e);
                 return;
             }

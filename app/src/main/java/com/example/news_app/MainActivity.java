@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
     private BottomNavigationView bottomNavigation;
+    String text;
 
 
     @Override
