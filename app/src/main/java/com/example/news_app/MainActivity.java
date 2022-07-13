@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.news_app.fragment.ComposeFragment;
 import com.example.news_app.fragment.HomeFragment;
+import com.example.news_app.fragment.LibraryFragment;
 import com.example.news_app.fragment.ProfileFragment;
 import com.example.news_app.fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
     private BottomNavigationView bottomNavigation;
+    String text;
 
 
     @Override
@@ -42,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.action_search:
                     Toast.makeText(MainActivity.this, "Search!", Toast.LENGTH_SHORT).show();
                     fragment = new SearchFragment();
+                    break;
+                case R.id.action_library:
+                    Toast.makeText(MainActivity.this, "Library!", Toast.LENGTH_SHORT).show();
+                    fragment = new LibraryFragment();
                     break;
                 case R.id.action_profile:
                 default:

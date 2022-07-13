@@ -103,5 +103,4 @@ public class Snippet {
         this.defaultAudioLanguage = defaultAudioLanguage;
     }
 
-
 }

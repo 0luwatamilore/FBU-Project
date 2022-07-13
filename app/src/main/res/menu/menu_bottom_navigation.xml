@@ -22,4 +22,9 @@
         android:icon="@drawable/ic_baseline_person_24"
         android:title="Profile"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/action_library"
+        android:icon="@drawable/ic_baseline_video_library_24"
+        android:title="library"
+        app:showAsAction="always" />
 </menu>
