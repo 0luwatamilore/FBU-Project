@@ -19,7 +19,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int[] icon = new int[] {R.drawable.ic_baseline_home_24, R.drawable.ic_baseline_create_24, R.drawable.ic_baseline_search_24, R.drawable.ic_baseline_person_24, R.drawable.ic_baseline_video_library_24};
+    private final int[] icon = new int[] {R.drawable.ic_baseline_home_24, R.drawable.ic_baseline_create_24, R.drawable.ic_baseline_search_24, R.drawable.ic_baseline_person_24, R.drawable.ic_baseline_video_library_24};
     TabLayout tabLayout;
     ViewPager2 viewPager;
 

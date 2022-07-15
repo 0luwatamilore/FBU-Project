@@ -15,8 +15,6 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
-import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -50,7 +48,7 @@ public class VideoPlayerActivity extends YouTubeBaseActivity {
         id = currentUser.getObjectId();
 
         // resolve the player view from the layout
-        YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.youtube_player_view);
+        YouTubePlayerView playerView = findViewById(R.id.youtube_player_view);
 
         playerView.initialize(getString(R.string.API_KEY), new YouTubePlayer.OnInitializedListener() {
             @Override
@@ -144,10 +142,10 @@ public class VideoPlayerActivity extends YouTubeBaseActivity {
         final AlertDialog.Builder alert = new AlertDialog.Builder(VideoPlayerActivity.this);
         View mView = getLayoutInflater().inflate(R.layout.layout_add_dialog, null);
 
-        etPlaylistName = (EditText) mView.findViewById(R.id.etPlaylistName);
+        etPlaylistName = mView.findViewById(R.id.etPlaylistName);
 
-        Button btnCancel = (Button) mView.findViewById(R.id.btnCancel);
-        Button btnOk = (Button) mView.findViewById(R.id.btnOk);
+        Button btnCancel = mView.findViewById(R.id.btnCancel);
+        Button btnOk = mView.findViewById(R.id.btnOk);
 
         alert.setView(mView);
 

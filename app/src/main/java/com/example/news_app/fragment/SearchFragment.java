@@ -79,7 +79,7 @@ public class SearchFragment extends Fragment {
         adapter = new SearchAdapter(getContext(), searches);
         rvSearch.setAdapter(adapter);
         btnEnter = view.findViewById(R.id.btnEnter);
-        etSearch = (AutoCompleteTextView) view.findViewById(R.id.etSearch);
+        etSearch = view.findViewById(R.id.etSearch);
         rvSearch.setLayoutManager(new LinearLayoutManager(getContext()));
         currentUser = (User) ParseUser.getCurrentUser();
         search_list = currentUser.getSearchKeyword();
@@ -143,7 +143,7 @@ public class SearchFragment extends Fragment {
 
     // INITIATE SEARCH
     public void createSearch() {
-        String searchInput = (String) etSearch.getText().toString();
+        String searchInput = etSearch.getText().toString();
         searchUrl += searchInput;
         searchUrl += "&key=" + getString(R.string.API_KEY);
         Log.i(TAG, "Search URL! >>> " + searchUrl);
