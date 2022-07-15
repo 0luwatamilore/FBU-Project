@@ -18,9 +18,9 @@ import com.example.news_app.model.search.Search;
 import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
+
     private final Context context;
     private final List<Search> searches;
-
 
     public SearchAdapter(Context context, List<Search> searches) {
         this.context = context;

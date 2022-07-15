@@ -69,9 +69,6 @@ public class LibraryFragment extends Fragment {
                     Log.e("TAG","Issues with getting posts", e);
                     return;
                 }
-                for (History object: objects){
-                    Log.i("TAG","Title: " + object.getHistoryTitle() + ", thumbnail: " + object.getHistoryThumbnail());
-                }
                 allHistory.addAll(objects);
                 historyAdapter.notifyDataSetChanged();
             }

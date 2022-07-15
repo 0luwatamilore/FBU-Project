@@ -45,6 +45,7 @@ import okhttp3.Headers;
  * A simple {@link Fragment} subclass.
  */
 public class SearchFragment extends Fragment {
+
     public static final String TAG = "SEARCH FRAGMENT";
     private String searchUrl = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=100&q=";
     User currentUser;
@@ -65,12 +66,14 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        ViewGroup rootView  = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
+        return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         rvSearch = view.findViewById(R.id.rvSearch);
         searches = new ArrayList<>();
         adapter = new SearchAdapter(getContext(), searches);
@@ -78,24 +81,19 @@ public class SearchFragment extends Fragment {
         btnEnter = view.findViewById(R.id.btnEnter);
         etSearch = (AutoCompleteTextView) view.findViewById(R.id.etSearch);
         rvSearch.setLayoutManager(new LinearLayoutManager(getContext()));
-
         currentUser = (User) ParseUser.getCurrentUser();
         search_list = currentUser.getSearchKeyword();
         arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_activated_1, search_list);
         etSearch.setAdapter(arrayAdapter);
 
-
         // SEARCH FEATURE
         btnEnter.setOnClickListener(v -> {
+            collapseKeyboard();
             createSearch();
             arrayAdapter.notifyDataSetChanged();
         });
 
-        // COLLAPSES KEYBOARD AFTER AUTOCOMPLETE
-        etSearch.setOnDismissListener(() -> {
-            InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getApplicationWindowToken(), 0);
-        });
+        collapseKeyboard();
 
         // PREFETCH FEATURE
         etSearch.addTextChangedListener(new TextWatcher() {
@@ -121,6 +119,14 @@ public class SearchFragment extends Fragment {
 
 
     // Helper Methods
+    // COLLAPSES KEYBOARD
+    public void collapseKeyboard() {
+        etSearch.setOnDismissListener(() -> {
+            InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getApplicationWindowToken(), 0);
+        });
+    }
+
     // Saving search keywords to database
     public void saveSearch(String search_keyword) {
         User currentUser = (User) ParseUser.getCurrentUser();
@@ -133,8 +139,6 @@ public class SearchFragment extends Fragment {
                 Log.e(TAG, getString(R.string.failure) + "  >>>  " + currentUser.getSearchKeyword() + e);
             }
         });
-
-
     }
 
     // INITIATE SEARCH

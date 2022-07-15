@@ -2,66 +2,63 @@ package com.example.news_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.news_app.fragment.ComposeFragment;
 import com.example.news_app.fragment.HomeFragment;
 import com.example.news_app.fragment.LibraryFragment;
 import com.example.news_app.fragment.ProfileFragment;
 import com.example.news_app.fragment.SearchFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 
 public class MainActivity extends AppCompatActivity {
 
-
-    final FragmentManager fragmentManager = getSupportFragmentManager();
-    private BottomNavigationView bottomNavigation;
-    String text;
-
+    private int[] icon = new int[] {R.drawable.ic_baseline_home_24, R.drawable.ic_baseline_create_24, R.drawable.ic_baseline_search_24, R.drawable.ic_baseline_person_24, R.drawable.ic_baseline_video_library_24};
+    TabLayout tabLayout;
+    ViewPager2 viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bottomNavigation = findViewById(R.id.bottom_navigation);
+        tabLayout = findViewById(R.id.tab_layout);
+        viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(new ViewPagerFragmentStateAdapter(this));
+        new TabLayoutMediator(tabLayout, viewPager,
+                (tab, position) -> tab.setIcon(icon[position])).attach();
+    }
 
-        bottomNavigation.setOnNavigationItemSelectedListener(item -> {
-            Fragment fragment;
-            switch (item.getItemId()) {
-                case R.id.action_home:
-                    Toast.makeText(MainActivity.this, "Home!", Toast.LENGTH_SHORT).show();
-                    fragment = new HomeFragment();
-                    break;
-                case R.id.action_compose:
-                    Toast.makeText(MainActivity.this, "Compose!", Toast.LENGTH_SHORT).show();
-                    fragment = new ComposeFragment();
-                    break;
-                case R.id.action_search:
-                    Toast.makeText(MainActivity.this, "Search!", Toast.LENGTH_SHORT).show();
-                    fragment = new SearchFragment();
-                    break;
-                case R.id.action_library:
-                    Toast.makeText(MainActivity.this, "Library!", Toast.LENGTH_SHORT).show();
-                    fragment = new LibraryFragment();
-                    break;
-                case R.id.action_profile:
-                default:
-                    Toast.makeText(MainActivity.this, "Profile!", Toast.LENGTH_SHORT).show();
-                    fragment = new ProfileFragment();
-                    break;
+    public  class ViewPagerFragmentStateAdapter extends FragmentStateAdapter {
+        public ViewPagerFragmentStateAdapter(FragmentActivity fragmentActivity) {
+            super(fragmentActivity);
+        }
+        @Override
+        public Fragment createFragment(int position) {
+            switch (position) {
+                case 0:
+                    return new HomeFragment();
+                case 1:
+                    return new ComposeFragment();
+                case 2:
+                    return new SearchFragment();
+                case 3:
+                    return new ProfileFragment();
+                case 4:
+                    return new LibraryFragment();
             }
-            fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
-            return true;
-        });
-        // Set default selection
-        bottomNavigation.setSelectedItemId(R.id.action_home);
-
-
+            return new HomeFragment();
+        }
+        @Override
+        public int getItemCount() {
+            return icon.length;
+        }
     }
 
 }

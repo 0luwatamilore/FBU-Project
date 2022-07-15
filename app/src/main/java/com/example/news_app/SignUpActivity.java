@@ -44,7 +44,6 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-
     private void signupUser(String firstName, String lastName, String username, String password, String email) {
         ParseUser user = new ParseUser();
         user.setUsername(username);

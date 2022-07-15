@@ -4,33 +4,29 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.news_app.R;
 import com.example.news_app.VideoAdapter;
-import com.example.news_app.model.Parse.Playlist;
-import com.example.news_app.model.Parse.User;
+import com.example.news_app.ViewType;
 import com.example.news_app.model.video.Video;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,22 +34,24 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import okhttp3.Headers;
 
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class HomeFragment extends Fragment {
 
+    private ViewType selectedViewType = ViewType.OneColumn;
     public static final String TAG = "HOME FRAGMENT";
-    String secretValue;
-    String NOW_PLAYING_URL;
     private RecyclerView rvVideos;
     private VideoAdapter adapter;
     private SwipeRefreshLayout swipeContainer;
+    private Menu menu;
     List<Video> allVideos;
+    String NOW_PLAYING_URL;
+    String secretValue;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -62,18 +60,20 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        setHasOptionsMenu(true);
+        Bundle bundle = getArguments();
+       return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         secretValue = getContext().getString(R.string.API_KEY);
         NOW_PLAYING_URL = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=contentDetails&chart=MostPopular&key="+secretValue;
         rvVideos = view.findViewById(R.id.rvVideos);
         allVideos = new ArrayList<>();
-        adapter = new VideoAdapter(getContext(), allVideos);
+        adapter = new VideoAdapter(getContext(), allVideos, selectedViewType);
         rvVideos.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvVideos.setLayoutManager(linearLayoutManager);
@@ -102,6 +102,73 @@ public class HomeFragment extends Fragment {
         rvVideos = view.findViewById(R.id.rvVideos);
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        this.menu = menu;
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.miChangeView:
+                changeSelectedViewType();
+                changeMenuItemIcon();
+                changeRecyclerViewViewType();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void changeMenuItemIcon() {
+        switch (selectedViewType) {
+            case OneColumn:
+                menu.findItem(R.id.miChangeView).setIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_two_column));
+                break;
+            case TwoColumns:
+                menu.findItem(R.id.miChangeView).setIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_three_column));
+                break;
+            case ThreeColumns:
+                menu.findItem(R.id.miChangeView).setIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_one_column));
+                break;
+        }
+    }
+
+    private void changeSelectedViewType() {
+        switch (selectedViewType) {
+            case OneColumn:
+                selectedViewType = ViewType.TwoColumns;
+                break;
+            case TwoColumns:
+                selectedViewType = ViewType.ThreeColumns;
+                break;
+            case ThreeColumns:
+                selectedViewType = ViewType.OneColumn;
+                break;
+        }
+    }
+
+    private void changeRecyclerViewViewType() {
+        switch (selectedViewType) {
+            case OneColumn:
+                rvVideos.setLayoutManager(new LinearLayoutManager(getContext()));
+                adapter = new VideoAdapter(getContext(), allVideos, selectedViewType);
+                rvVideos.setAdapter(adapter);
+                break;
+            case TwoColumns:
+                rvVideos.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+                adapter = new VideoAdapter(getContext(), allVideos, selectedViewType);
+                rvVideos.setAdapter(adapter);
+                break;
+            case ThreeColumns:
+                rvVideos.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+                adapter = new VideoAdapter(getContext(), allVideos, selectedViewType);
+                rvVideos.setAdapter(adapter);
+                break;
+        }
+    }
 
     public void networkRequest() {
         AsyncHttpClient client = new AsyncHttpClient();

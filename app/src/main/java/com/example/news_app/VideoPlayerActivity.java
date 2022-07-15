@@ -110,14 +110,13 @@ public class VideoPlayerActivity extends YouTubeBaseActivity {
                 History history = new History();
                 history.setHistoryUser(currentUser);
                 history.setHistoryVideoId(videoId);
-        history.setHistoryTitle(videoTitle);
-        history.setHistoryThumbnail(videoThumbnail);
+                history.setHistoryTitle(videoTitle);
+                history.setHistoryThumbnail(videoThumbnail);
                 history.saveInBackground();
             }
         });
 
     }
-
 
     public void add_to_playlist() {
         String playlistName = etPlaylistName.getText().toString().toLowerCase();

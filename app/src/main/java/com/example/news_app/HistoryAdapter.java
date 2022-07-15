@@ -45,7 +45,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-
         ImageView history_image;
         TextView history_title;
 
