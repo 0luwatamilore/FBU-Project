@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground">
 
 
     <TextView
@@ -15,7 +16,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
         android:text="@string/warriors_at_celtics_full_game_6_nba_finals_highlights_june_16_2022"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="20sp"/>
 
 
     <Button

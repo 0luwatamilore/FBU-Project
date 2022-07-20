@@ -7,7 +7,6 @@ public class Video {
     private Snippet snippet;
     private ContentDetails contentDetails;
 
-
     public ContentDetails getContentDetails() {
         return contentDetails;
     }
@@ -47,7 +46,6 @@ public class Video {
     public void setSnippet(Snippet snippet) {
         this.snippet = snippet;
     }
-
 
     @Override
     public String toString() {

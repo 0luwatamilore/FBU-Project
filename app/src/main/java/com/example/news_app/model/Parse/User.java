@@ -15,7 +15,6 @@ public class User extends ParseUser {
     public static final String KEY_HISTORY = "search_history";
     public static final String KEY_PLAYLIST = "playlists";
 
-
     public List<String> getPlaylist() {
         List<String> playlists = getList(KEY_PLAYLIST);
         if (playlists != null) {

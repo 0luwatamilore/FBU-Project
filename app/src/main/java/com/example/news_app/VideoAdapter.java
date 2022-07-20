@@ -23,19 +23,31 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
 
     private final Context context;
     private final List<Video> videos;
+    private final ViewType viewType;
 
 
-    public VideoAdapter(Context context, List<Video> videos) {
+    public VideoAdapter(Context context, List<Video> videos, ViewType viewType) {
         this.context = context;
         this.videos = videos;
+        this.viewType= viewType;
     }
-
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View videoView = null;
+        switch (this.viewType) {
+            case OneColumn:
+                videoView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_video, parent, false);
+                break;
+            case TwoColumns:
+                videoView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_video_two_columns, parent, false);
+                break;
+            case ThreeColumns:
+                videoView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_video_three_columns, parent, false);
+                break;
+        }
         Log.d(context.getString(R.string.vAdapter), context.getString(R.string.create_view_holder));
-        View videoView = LayoutInflater.from(context).inflate(R.layout.item_video, parent, false);
         return new ViewHolder(videoView);
     }
 
@@ -46,7 +58,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         Video video = videos.get(position);
         // Bind the movie in to the VH
         holder.bind(video);
-
     }
 
     @Override
@@ -86,9 +97,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 context.startActivity(i);
             });
         }
-
     }
-
 
     public void clear() {
         videos.clear();

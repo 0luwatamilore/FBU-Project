@@ -18,7 +18,7 @@ public class SearchPlayerActivity extends YouTubeBaseActivity {
         String videoId = getIntent().getStringExtra("SearchCue");
 
         // resolve the player view from the layout
-        YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.search_player_view);
+        YouTubePlayerView playerView = findViewById(R.id.search_player_view);
 
         playerView.initialize(getString(R.string.API_KEY), new YouTubePlayer.OnInitializedListener() {
             @Override

@@ -23,6 +23,5 @@ public class ParseApplication extends Application {
                 .server("https://parseapi.back4app.com")
                 .build()
         );
-
     }
 }

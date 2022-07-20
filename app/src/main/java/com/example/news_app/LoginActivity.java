@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
-
     public static final String TAG = "LOGIN ACTIVITY";
     private EditText etEmail;
     private EditText etPassword;
@@ -38,13 +37,10 @@ public class LoginActivity extends AppCompatActivity {
 
         Button btnSignUp = findViewById(R.id.btnSignUp);
         btnSignUp.setOnClickListener(v -> goSignUpActivity());
-
     }
-
 
     private void loginUser(String email, String password) {
         Log.i(TAG, getString(R.string.login_attempt) + email);
-
         ParseUser.logInInBackground(email, password, (user, e) -> {
             if (e != null) {
                 Toast.makeText(LoginActivity.this, getString(R.string.login_issue), Toast.LENGTH_SHORT).show();

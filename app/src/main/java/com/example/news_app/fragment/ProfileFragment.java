@@ -1,21 +1,9 @@
 package com.example.news_app.fragment;
 
-import android.app.AlarmManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.fragment.app.Fragment;
-
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.Fragment;
 
 import com.example.news_app.LoginActivity;
 import com.example.news_app.R;
@@ -34,6 +27,7 @@ import com.parse.ParseUser;
  * A simple {@link Fragment} subclass.
  */
 public class ProfileFragment extends Fragment {
+
     public static final String TAG = "PROFILE FRAGMENT";
     public static final String MY_PREFERENCE = "nightModePrefs";
     public static final String IS_NIGHT_MODE = "isNightMode";
@@ -42,13 +36,6 @@ public class ProfileFragment extends Fragment {
     Button btnUpdatePassword;
     EditText etNewPassword;
     Switch aSwitch;
-
-    public static final String PREFERENCE = "NotificationPreference";
-    public static final String NOTIFICATION = "isNotification";
-    Switch switch_Notification;
-    SharedPreferences notificationPreference;
-
-    private Handler mHandler = new Handler();
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -65,7 +52,6 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        createNotificationChannel();
         
         // USER LOG-OUT
         btnLogOut = view.findViewById(R.id.btnLogOut);
@@ -101,21 +87,6 @@ public class ProfileFragment extends Fragment {
             updatePassword();
         });
     }
-
-
-    private void createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "NewChannel";
-            String description = "Channel for App Reminder";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("new notification", name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getContext().getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
 
     private void saveNightModeState(boolean nightMode) {
         SharedPreferences.Editor editor = sharedPreferences.edit();

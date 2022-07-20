@@ -1,7 +1,6 @@
 package com.example.news_app.model.video;
 
 public class ContentDetails {
-
     private String duration;
     private String dimension;
     private String definition;
@@ -56,5 +55,4 @@ public class ContentDetails {
     public void setProjection(String projection) {
         this.projection = projection;
     }
-
 }
