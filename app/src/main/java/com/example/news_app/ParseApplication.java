@@ -4,8 +4,10 @@ import android.app.Application;
 
 import com.example.news_app.model.Parse.History;
 import com.example.news_app.model.Parse.Playlist;
+import com.example.news_app.model.Parse.Post;
 import com.example.news_app.model.Parse.User;
 import com.parse.Parse;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 
 public class ParseApplication extends Application {
@@ -16,6 +18,7 @@ public class ParseApplication extends Application {
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Playlist.class);
         ParseObject.registerSubclass(History.class);
+        ParseObject.registerSubclass(Post.class);
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("vf5W5u7wdTcn1f5HXaNmIuy6U2Zl9CrdDZpDmOyS")
                 // if defined
@@ -23,5 +26,9 @@ public class ParseApplication extends Application {
                 .server("https://parseapi.back4app.com")
                 .build()
         );
+
+        ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+        installation.put("GCMSenderId", "1029195908781");
+        installation.saveInBackground();
     }
 }

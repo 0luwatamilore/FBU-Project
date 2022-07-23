@@ -9,55 +9,73 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.news_app.model.Parse.User;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.parse.ParseUser;
 
 public class SignUpActivity extends AppCompatActivity {
 
     public static final String TAG = "Sign Up Activity";
+    TextInputLayout et_Firstname;
+    TextInputLayout et_Lastname;
+    TextInputLayout et_Username;
+    TextInputLayout et_Pass;
     Button btnEnter;
-    EditText etFirstName;
-    EditText etLastName;
-    EditText etUsername;
-    EditText etPass;
-    EditText edtEmail;
+    String firstname;
+    String lastname;
+    String username;
+    String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        etFirstName = findViewById(R.id.etFirstName);
-        etLastName = findViewById(R.id.etLastName);
-        etUsername = findViewById(R.id.etUsername);
-        etPass = findViewById(R.id.etPass);
-        edtEmail = findViewById(R.id.etEmail);
+        et_Firstname = findViewById(R.id.et_FirstName);
+        et_Lastname = findViewById(R.id.et_LastName);
+        et_Username = findViewById(R.id.et_Username);
+        et_Pass = findViewById(R.id.et_Pass);
+
 
         btnEnter = findViewById(R.id.btnEnter);
         btnEnter.setOnClickListener(v -> {
-            String FirstName = etFirstName.getText().toString();
-            String LastName = etLastName.getText().toString();
-            String Username = etUsername.getText().toString();
-            String Password = etPass.getText().toString();
-            String email = etPass.getText().toString();
+            firstname = et_Firstname.getEditText().getText().toString();
+            lastname = et_Lastname.getEditText().getText().toString();
+            username = et_Username.getEditText().getText().toString();
+            password = et_Pass.getEditText().getText().toString();
 
-            signupUser(FirstName, LastName, Username, Password, email);
+            signupUser(firstname, lastname, username, password);
         });
     }
 
-    private void signupUser(String firstName, String lastName, String username, String password, String email) {
-        ParseUser user = new ParseUser();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.put("firstName", firstName);
-        user.put("lastName", lastName);
-        user.signUpInBackground(e -> {
-            if (e != null) {
-                Log.e(TAG, "Issues with Sign Up! ", e);
-                Toast.makeText(SignUpActivity.this, "Issue with Sign Up ", Toast.LENGTH_SHORT).show();
-            }
-            Toast.makeText(SignUpActivity.this, getString(R.string.welcome), Toast.LENGTH_SHORT).show();
-            goMainActivity();
-        });
+    private boolean validateInfo() {
+        if(username.isEmpty() || password.isEmpty()) {
+            et_Username.setError("This is a required field!");
+            et_Pass.setError("This is a required field!");
+            return false;
+        }
+        et_Username.setError(null);
+        et_Pass.setError(null);
+        return true;
+    }
+
+    private void signupUser(String firstName, String lastName, String username, String password) {
+        if(validateInfo()) {
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setFirstname(firstName);
+            user.setLastname(lastName);
+            user.signUpInBackground(e -> {
+                if (e != null) {
+                    Log.e(TAG, "Issues with Sign Up! ", e);
+                    Toast.makeText(SignUpActivity.this, "Issue with Sign Up ", Toast.LENGTH_SHORT).show();
+                }
+                Toast.makeText(SignUpActivity.this, getString(R.string.welcome), Toast.LENGTH_SHORT).show();
+                goMainActivity();
+            });
+        }
     }
 
     private void goMainActivity() {

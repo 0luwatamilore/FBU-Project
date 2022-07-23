@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.example.news_app.model.Parse.History;
 import com.example.news_app.model.Parse.Playlist;
 import com.example.news_app.model.Parse.User;
@@ -89,8 +91,6 @@ public class VideoPlayerActivity extends YouTubeBaseActivity {
 
         btn_Add_To_Playlist = findViewById(R.id.btn_Add_To_Playlist);
         btn_Add_To_Playlist.setOnClickListener(v -> Add_Dialog(v));
-
-
     }
 
     // Verifies if the video has been played before
