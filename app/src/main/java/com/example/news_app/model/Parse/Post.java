@@ -1,7 +1,6 @@
 package com.example.news_app.model.Parse;
 
 import com.parse.ParseClassName;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -9,9 +8,8 @@ import com.parse.ParseUser;
 public class Post extends ParseObject {
     public static final String POST_USER = "user";
     public static final String POST_TITLE = "title";
-    public static final String POST_VIDEO = "video";
+    public static final String POST_VIDEO_URL = "videoUrl";
     public static final String POST_CREATED_KEY = "createdAt";
-    public static final String VIDEO_BYTE = "videoByte";
 
     public Post() {}
 
@@ -31,12 +29,12 @@ public class Post extends ParseObject {
         put(POST_TITLE, title);
     }
 
-    public ParseFile getPostVideo() {
-        return getParseFile(POST_VIDEO);
+    public String getPostVideo() {
+        return getString(POST_VIDEO_URL);
     }
 
-    public void setPostVideo(ParseFile parseFile) {
-        put(POST_VIDEO, parseFile);
+    public void setPostVideo(String videUrl) {
+        put(POST_VIDEO_URL, videUrl);
     }
 
 }
