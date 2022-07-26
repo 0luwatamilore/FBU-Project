@@ -7,4 +7,9 @@
         android:id="@+id/miChangeView"
         android:icon="@drawable/ic_two_column"/>
 
+    <item android:title="settings"
+        app:showAsAction="always"
+        android:id="@+id/miSettings"
+        android:icon="@drawable/ic_baseline_settings_24"/>
+
 </menu>

@@ -1,5 +1,6 @@
 package com.example.news_app.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,9 +19,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.news_app.ProfileActivity;
+import com.example.news_app.PublishContentActivity;
 import com.example.news_app.R;
 import com.example.news_app.VideoAdapter;
 import com.example.news_app.ViewType;
@@ -100,6 +104,16 @@ public class HomeFragment extends Fragment {
                 android.R.color.holo_red_light);
 
         rvVideos = view.findViewById(R.id.rvVideos);
+
+
+        Button pick = view.findViewById(R.id.pick);
+        pick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), PublishContentActivity.class);
+                getActivity().startActivity(i);
+            }
+        });
     }
 
 
@@ -117,6 +131,10 @@ public class HomeFragment extends Fragment {
                 changeSelectedViewType();
                 changeMenuItemIcon();
                 changeRecyclerViewViewType();
+                break;
+            case R.id.miSettings:
+                Intent intent = new Intent(getContext(), ProfileActivity.class);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);
