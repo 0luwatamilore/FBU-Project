@@ -9,12 +9,9 @@
     android:layout_marginHorizontal="8dp"
     android:foreground="?attr/selectableItemBackground">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tvTitle"
@@ -96,8 +93,6 @@
             android:layout_marginTop="1dp"
             tools:srcCompat="@tools:sample/avatars" />
 
-
     </RelativeLayout>
-
 
 </androidx.cardview.widget.CardView>

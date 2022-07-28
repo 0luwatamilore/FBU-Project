@@ -13,27 +13,17 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="100dp"
+         />
 
-    <Button
-        android:id="@+id/btn_Add_To_Playlist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/youtube_player_view"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="164dp"
-        android:layout_marginEnd="66dp"
-        android:text="@string/add" />
-
-    <Button
-        android:id="@+id/btn_Create_Playlist"
+    <ImageButton
+        android:id="@+id/add_to_playlist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/youtube_player_view"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="161dp"
-        android:text="@string/create" />
-
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_baseline_playlist_add_24" />
 
 </RelativeLayout>

@@ -12,6 +12,8 @@ public class History extends ParseObject {
     public static final String HISTORY_TITLE = "title";
     public static final String HISTORY_CREATED_AT = "createdAt";
 
+    public History() {}
+
     public void setHistoryUser(ParseUser user) {
         put(HISTORY_USER, user);
     }

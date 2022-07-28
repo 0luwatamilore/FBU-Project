@@ -13,9 +13,9 @@ import com.example.news_app.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ComposeFragment extends Fragment {
+public class PostFragment extends Fragment {
 
-    public ComposeFragment() {
+    public PostFragment() {
         // Required empty public constructor
     }
 
@@ -24,6 +24,7 @@ public class ComposeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_compose, container, false);
+        return inflater.inflate(R.layout.fragment_post, container, false);
     }
+
 }

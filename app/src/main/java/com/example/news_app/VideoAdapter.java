@@ -70,7 +70,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         ImageView ivThumbnail;
         TextView tvTitle;
         TextView tvChannelTitle;
-        TextView tvDuration;
         TextView tvPublishedAt;
 
         public ViewHolder(@NonNull View itemView) {
@@ -78,7 +77,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             ivThumbnail = itemView.findViewById(R.id.ivThumbnail);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvChannelTitle = itemView.findViewById(R.id.tvChannelTitle);
-            tvDuration = itemView.findViewById(R.id.tvDuration);
             tvPublishedAt = itemView.findViewById(R.id.tvPublishedAt);
         }
 
@@ -87,7 +85,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
             tvChannelTitle.setText(video.getSnippet().getChannelTitle());
             Glide.with(context).load(video.getSnippet().getThumbnails().getHigh().getUrl()).into(ivThumbnail);
             tvPublishedAt.setText(video.getSnippet().getPublishedAt());
-            tvDuration.setText(video.getContentDetails().getDuration());
 
             ivThumbnail.setOnClickListener(v -> {
                 Intent i = new Intent(context, VideoPlayerActivity.class);

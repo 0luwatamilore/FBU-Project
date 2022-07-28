@@ -1,6 +1,7 @@
 package com.example.news_app.model.Parse;
 
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -14,6 +15,17 @@ public class User extends ParseUser {
     public static final String KEY_SEARCH_KEYWORDS = "search_keywords";
     public static final String KEY_HISTORY = "search_history";
     public static final String KEY_PLAYLIST = "playlists";
+    public static final String KEY_IMAGE = "profileImage";
+
+    public User() {}
+
+    public void setImage(String photoUrl) {
+        put(KEY_IMAGE, photoUrl);
+    }
+
+    public String getImage() {
+        return getString(KEY_IMAGE);
+    }
 
     public List<String> getPlaylist() {
         List<String> playlists = getList(KEY_PLAYLIST);

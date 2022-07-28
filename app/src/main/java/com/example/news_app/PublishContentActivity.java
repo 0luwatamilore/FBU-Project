@@ -117,7 +117,6 @@ public class PublishContentActivity extends AppCompatActivity {
                     Uri downloadUri = uriTask.getResult();
                     if (uriTask.isSuccessful()) {
                         // uri of uploaded is received
-
                         // now we can video details to our firebase database
                         HashMap<String, Object> hashMap = new HashMap<>();
                         hashMap.put("id", "" + timeStamp);
@@ -133,8 +132,8 @@ public class PublishContentActivity extends AppCompatActivity {
                                 .setValue(hashMap)
                                 .addOnSuccessListener(aVoid -> {
                                     // video uploaded to database
-                                    progressDialog.dismiss();
                                     savePost();
+                                    progressDialog.dismiss();
                                     Toast.makeText(PublishContentActivity.this
                                             , "Video Uploaded...", Toast.LENGTH_SHORT).show();
                                 })

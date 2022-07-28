@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".PublishContentActivity"
     android:padding="10dp"
-    android:fillViewport="true"
     android:fitsSystemWindows="true"
     android:scrollbars="none"
+    android:orientation="vertical"
     android:id="@+id/publish_content">
 
     <RelativeLayout
@@ -60,6 +60,5 @@
             android:text="submit" />
 
     </RelativeLayout>
-
 
 </ScrollView>

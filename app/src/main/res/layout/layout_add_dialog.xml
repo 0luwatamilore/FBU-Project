@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="16dp">
 
     <TextView
@@ -13,41 +13,61 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
-        android:text="@string/new_playlist" />
+        android:text="@string/new_playlist"
+        android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/etPlaylistName"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_playlist_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvCreatePlaylist"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="112dp"
-        android:ems="10"
-        android:hint="Title"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="74dp"
-        tools:layout_editor_absoluteY="30dp" />
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        app:errorEnabled="true"
+        android:textColorHint="#757575">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_playlist_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Playlist Name"
+            android:inputType="textVisiblePassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
-        android:id="@+id/btnOk"
+        android:id="@+id/btn_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etPlaylistName"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="49dp"
-        android:layout_marginEnd="53dp"
+        android:layout_below="@+id/et_playlist_name"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/btn_cancel"
         android:text="Ok" />
 
     <Button
-        android:id="@+id/btnCancel"
+        android:id="@+id/btn_cancel"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_playlist_name"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="30dp"
+        android:text="Cancel" />
+
+    <Button
+        android:id="@+id/btn_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etPlaylistName"
+        android:layout_below="@+id/btn_cancel"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="61dp"
-        android:layout_marginTop="56dp"
-        android:text="Cancel" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="30dp"
+        android:text="Create" />
+
+
 </RelativeLayout>

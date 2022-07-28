@@ -88,13 +88,13 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void saveNightModeState(boolean nightMode) {
+    public void saveNightModeState(boolean nightMode) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(IS_NIGHT_MODE, nightMode);
         editor.apply();
     }
 
-    private void checkNightModeActivated() {
+    public void checkNightModeActivated() {
         if (sharedPreferences.getBoolean(IS_NIGHT_MODE, false)) {
             aSwitch.setChecked(true);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
