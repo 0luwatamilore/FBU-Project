@@ -8,7 +8,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
-import com.example.news_app.fragment.ComposeFragment;
+import com.example.news_app.fragment.PostFragment;
 import com.example.news_app.fragment.HomeFragment;
 import com.example.news_app.fragment.LibraryFragment;
 import com.example.news_app.fragment.ProfileFragment;
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return new HomeFragment();
                 case 1:
-                    return new ComposeFragment();
+                    return new PostFragment();
                 case 2:
                     return new SearchFragment();
                 case 3:

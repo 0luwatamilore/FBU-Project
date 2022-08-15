@@ -10,37 +10,52 @@ import java.util.List;
 @ParseClassName("Playlist")
 public class Playlist extends ParseObject {
     public static final String PLAYLIST_USER = "user";
-    public static final String PLAYLIST_Name = "playlist_name";
-    public static final String PLAYLIST_ITEMS = "playlist_items";
+    public static final String PLAYLIST_NAME = "playlist_name";
+    public static final String PLAYLIST_THUMBNAIL = "thumbnail";
+    public static final String PLAYLIST_TITLE = "title";
+    public static final String PLAYLIST_VIDEO = "videoId";
     public static final String CREATED_KEY = "createdAt";
+
+    public Playlist() {}
 
     public ParseUser getUser() {
         return getParseUser(PLAYLIST_USER);
     }
 
-    public void setPlaylistUser(String object_id) {
-        put(PLAYLIST_USER, object_id);
+    public void setPlaylistUser(ParseUser user) {
+        put(PLAYLIST_USER, user);
     }
 
-    public String getPLAYLIST_Name() {
-        return getString(PLAYLIST_Name);
+    public String getPlaylistName() {
+        return getString(PLAYLIST_NAME);
     }
 
-    public void setPLAYLIST_Name(String playlist_name) {
-        put(PLAYLIST_Name, playlist_name);
+    public void setPlaylistName(String playlist_name) {
+        put(PLAYLIST_NAME, playlist_name);
     }
 
-    public List<String> getPlaylistItems() {
-        List<String> playlist_items = getList(PLAYLIST_ITEMS);
-        if (playlist_items != null) {
-            return getList(PLAYLIST_ITEMS);
-        } else {
-            return new ArrayList<>();
-        }
+    public String getPlaylistThumbnail() {
+        return getString(PLAYLIST_THUMBNAIL);
     }
 
-    public void setPlaylistItems(List<String> playlist_items) {
-        put(PLAYLIST_ITEMS, playlist_items);
+    public void setPlaylistThumbnail(String playlist_thumbnail) {
+        put(PLAYLIST_THUMBNAIL, playlist_thumbnail);
+    }
+
+    public String getPlaylistTitle() {
+        return getString(PLAYLIST_TITLE);
+    }
+
+    public void setPlaylistTitle(String playlist_title) {
+        put(PLAYLIST_TITLE, playlist_title);
+    }
+
+    public String getPlaylistVideo() {
+        return getString(PLAYLIST_VIDEO);
+    }
+
+    public void setPlaylistVideo(String playlist_video) {
+        put(PLAYLIST_VIDEO, playlist_video);
     }
 
 }

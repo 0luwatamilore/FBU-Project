@@ -29,6 +29,7 @@ import com.example.news_app.R;
 import com.example.news_app.VideoAdapter;
 import com.example.news_app.ViewType;
 import com.example.news_app.model.video.Video;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -49,13 +50,14 @@ public class HomeFragment extends Fragment {
 
     private ViewType selectedViewType = ViewType.OneColumn;
     public static final String TAG = "HOME FRAGMENT";
+    private SwipeRefreshLayout swipeContainer;
+    private FloatingActionButton btnCreate;
     private RecyclerView rvVideos;
     private VideoAdapter adapter;
-    private SwipeRefreshLayout swipeContainer;
-    private Menu menu;
-    List<Video> allVideos;
     String NOW_PLAYING_URL;
+    List<Video> allVideos;
     String secretValue;
+    private Menu menu;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -74,7 +76,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         secretValue = getContext().getString(R.string.API_KEY);
-        NOW_PLAYING_URL = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=contentDetails&chart=MostPopular&key="+secretValue;
+        NOW_PLAYING_URL = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=contentDetails&maxResults=100&chart=MostPopular&key="+secretValue;
         rvVideos = view.findViewById(R.id.rvVideos);
         allVideos = new ArrayList<>();
         adapter = new VideoAdapter(getContext(), allVideos, selectedViewType);
@@ -105,9 +107,17 @@ public class HomeFragment extends Fragment {
 
         rvVideos = view.findViewById(R.id.rvVideos);
 
-
         Button pick = view.findViewById(R.id.pick);
         pick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), PublishContentActivity.class);
+                getActivity().startActivity(i);
+            }
+        });
+
+        btnCreate = view.findViewById(R.id.btn_create);
+        btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), PublishContentActivity.class);

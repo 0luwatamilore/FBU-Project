@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.news_app.model.Parse.User;
@@ -25,6 +27,8 @@ public class ProfileActivity extends AppCompatActivity {
     private Button btnUpdatePassword;
     private User currentUser;
     private Button btnPersonalInfo;
+    SharedPreferences sharedPreferences;
+    Switch aSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

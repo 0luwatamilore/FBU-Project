@@ -33,8 +33,8 @@ public class Post extends ParseObject {
         return getString(POST_VIDEO_URL);
     }
 
-    public void setPostVideo(String videUrl) {
-        put(POST_VIDEO_URL, videUrl);
+    public void setPostVideo(String videoUrl) {
+        put(POST_VIDEO_URL, videoUrl);
     }
 
 }

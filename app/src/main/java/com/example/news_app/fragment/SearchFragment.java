@@ -38,6 +38,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.Headers;
 
@@ -48,6 +49,7 @@ public class SearchFragment extends Fragment {
 
     public static final String TAG = "SEARCH FRAGMENT";
     private String searchUrl = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=100&q=";
+    String secretValue;
     User currentUser;
     RecyclerView rvSearch;
     SearchAdapter adapter;
@@ -74,6 +76,7 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        secretValue = getString(R.string.API_KEY);
         rvSearch = view.findViewById(R.id.rvSearch);
         searches = new ArrayList<>();
         adapter = new SearchAdapter(getContext(), searches);
@@ -98,15 +101,9 @@ public class SearchFragment extends Fragment {
         // PREFETCH FEATURE
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
             @Override
             public void afterTextChanged(Editable s) {
                 new Handler().postDelayed(() -> {
@@ -145,7 +142,7 @@ public class SearchFragment extends Fragment {
     public void createSearch() {
         String searchInput = etSearch.getText().toString();
         searchUrl += searchInput;
-        searchUrl += "&key=" + getString(R.string.API_KEY);
+        searchUrl += "&key=" + secretValue;
         Log.i(TAG, "Search URL! >>> " + searchUrl);
         saveSearch(searchInput);
         arrayAdapter.add(searchInput);
@@ -159,7 +156,7 @@ public class SearchFragment extends Fragment {
         client.get(searchUrl, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.d(TAG, getString(R.string.success));
+                Log.d(TAG, "success");
                 JSONObject jsonObject = json.jsonObject;
                 try {
                     Type searchListType = new TypeToken<List<Search>>() {
